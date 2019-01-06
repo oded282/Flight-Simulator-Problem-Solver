@@ -4,17 +4,19 @@
 
 #include "Solver.h"
 #include "CacheManager.h"
+#include <unordered_map>
+
 
 class FileCachManager : public CacheManager {
-
+    unordered_map<string, string> oldMap;
+    unordered_map<string,string> newMap;
 
 public:
 
-    void saveSolution(Problem problem, Solution solution) override;
-
-    bool isSolution(Problem problem) override;
-
-    Solution getSolution(Problem problem) override;
+    virtual void saveSolution(string problem, string solution);
+    virtual string getSolution(string problem);
+    virtual void addSolution(string problem, string solution );
+    virtual void loadSolution();
 };
 
 

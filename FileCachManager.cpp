@@ -2,14 +2,19 @@
 
 #include "FileCachManager.h"
 
-void FileCachManager::saveSolution(Problem problem, Solution solution) {
+void FileCachManager::saveSolution(string problem, string solution){
 
 }
+string FileCachManager::getSolution(string problem){
+    if(newMap.find(problem)){
 
-bool FileCachManager::isSolution(Problem problem) {
-    return false;
+    }else{
+
+    }
 }
+void FileCachManager::addSolution(string problem, string solution ){
 
-Solution FileCachManager::getSolution(Problem problem) {
-    return nullptr;
+}
+void FileCachManager::loadSolution(){
+
 }
