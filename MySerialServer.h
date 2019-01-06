@@ -11,7 +11,9 @@ public:
         shouldRun = true;
     }
     virtual void open(int port);
-    virtual void close();
+    virtual void close(){
+        shouldRun = false;
+    }
 
 
 };
