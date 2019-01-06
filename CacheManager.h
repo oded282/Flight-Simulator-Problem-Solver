@@ -6,9 +6,9 @@
 class CacheManager {
 
 public:
-    void saveSolution(Problem, Solution);
-    bool isSolution(Problem);
-    Solution getSolution(Problem);
+    virtual void saveSolution(int, int) = 0;
+    virtual bool isSolution(int) = 0;
+    virtual int getSolution(int) = 0;
 
 
 };

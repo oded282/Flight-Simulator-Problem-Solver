@@ -3,12 +3,18 @@
 
 
 #include "Solver.h"
+#include "CacheManager.h"
 
-class FileCachManager : public Solver {
+class FileCachManager : public CacheManager {
 
 
 public:
 
+    void saveSolution(Problem problem, Solution solution) override;
+
+    bool isSolution(Problem problem) override;
+
+    Solution getSolution(Problem problem) override;
 };
 
 

@@ -6,8 +6,7 @@ class ClientHandler
 {
 
 public:
-    virtual void handleClient();
-
+    virtual void handleClient(stream , stream);
 
 
 };

@@ -6,7 +6,7 @@ class Solver{
 
 
 public:
-    virtual Solution solver(Problem) =0;
+    virtual Solution solve(Problem) = 0;
 };
 
 
