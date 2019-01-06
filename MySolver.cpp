@@ -2,6 +2,6 @@
 
 
 
-Solution MySolver::solve(Problem problem) {
-    return nullptr;
+string MySolver::solve(string problem) {
+    return "";
 }

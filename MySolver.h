@@ -1,18 +1,16 @@
-//
-// Created by almog on 06/01/19.
-//
-
 #ifndef MILESTONE2_MYSOLVER_H
 #define MILESTONE2_MYSOLVER_H
+using namespace std;
 
 
+#include <string>
 #include "Solver.h"
 
 class MySolver : public Solver {
 
 
 public:
-    virtual Solution solve(Problem problem) ;
+    virtual string solve(string problem) ;
 };
 
 

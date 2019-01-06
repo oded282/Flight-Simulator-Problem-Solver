@@ -6,6 +6,8 @@
 #include "Solver.h"
 #include "CacheManager.h"
 
+#define SIZE_OF_READ_DATA 256
+
 class MyTestClientHandler : public ClientHandler {
 
     Solver* solver;
@@ -17,8 +19,8 @@ public:
         cm = c;
     }
 
-    virtual void handlerClient(Stream input , stream output);
-    
+    virtual void handleClient(int sockfd);
+
 
 };
 
