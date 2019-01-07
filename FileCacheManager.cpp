@@ -1,8 +1,7 @@
-
-
 #include <fstream>
 #include <iostream>
 #include "FileCacheManager.h"
+
 
 void FileCacheManager::saveSolution() {
     ofstream outfile;
