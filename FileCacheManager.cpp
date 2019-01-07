@@ -22,7 +22,7 @@ string FileCacheManager::getSolution(string problem) {
     } else if (oldMap.find(problem) != oldMap.end()) {
         return oldMap[problem];
     } else {
-        return nullptr;
+        return "";
     }
 }
 

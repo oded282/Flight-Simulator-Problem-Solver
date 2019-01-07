@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "Server.h"
 #include "MySerialServer.h"
 #include "MyTestClientHandler.h"
@@ -8,7 +9,9 @@
 int main (){
 
     Server* server = new MySerialServer();
-    server->open(100 , new MyTestClientHandler(new FileCacheManager() , new StringRevers()));
+    server->open(5402 , new MyTestClientHandler(new FileCacheManager() , new StringRevers()));
+
+    sleep(500);
 
 
     return 1;

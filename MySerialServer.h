@@ -1,9 +1,15 @@
 #ifndef MILESTONE2_MYSERIALSERVER_H
 #define MILESTONE2_MYSERIALSERVER_H
 
-
 #include "Server.h"
 
+
+//struct for the thread.
+struct TreadParms {
+    int sockfd;
+    ClientHandler* clientHandler;
+
+};
 class MySerialServer : public Server {
 
 
