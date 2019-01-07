@@ -5,6 +5,8 @@ using namespace std;
 
 #include <string>
 #include "Solver.h"
+using namespace std;
+
 
 class MySolver : public Solver {
 
