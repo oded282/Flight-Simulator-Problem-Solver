@@ -11,7 +11,7 @@ public:
     MySerialServer(){
         shouldRun = true;
     }
-    virtual void open(int port);
+    virtual void open(int port ,ClientHandler c) ;
     virtual void close(){
         shouldRun = false;
     }

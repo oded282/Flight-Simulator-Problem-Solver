@@ -9,7 +9,7 @@ class ClientHandler
 {
 
 public:
-    virtual void handleClient(ios& , ios&) = 0;
+    virtual void handleClient(int sock) = 0;
 
 
 };
