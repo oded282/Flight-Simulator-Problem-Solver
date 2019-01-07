@@ -47,8 +47,3 @@ void FileCacheManager::loadSolution() {
     }
 
 }
-
-int main(){
-    FileCacheManager f;
-    f.loadSolution();
-}

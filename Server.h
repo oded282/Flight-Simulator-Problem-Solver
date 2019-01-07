@@ -11,7 +11,7 @@ bool shouldRun;
 
 public:
 
-    virtual void open(int port ) = 0;
+    virtual void open(int port , ClientHandler* c) = 0;
     virtual void close() = 0;
 
 };

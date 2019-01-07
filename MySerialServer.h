@@ -11,11 +11,10 @@ public:
     MySerialServer(){
         shouldRun = true;
     }
-    virtual void open(int port ,ClientHandler c) ;
-    virtual void close(){
+     void open(int port ,ClientHandler* c) ;
+     void close(){
         shouldRun = false;
     }
-
 
 };
 

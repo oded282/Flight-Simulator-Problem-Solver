@@ -2,7 +2,7 @@
 #include <string.h>
 #include "MySerialServer.h"
 
-void MySerialServer::open(int port , ClientHandler clientHandler) {
+void MySerialServer::open(int port , ClientHandler* clientHandler) {
 
     int sockfd, clilen , newsockfd;
     struct sockaddr_in serv_addr, cli_addr;
@@ -43,9 +43,10 @@ void MySerialServer::open(int port , ClientHandler clientHandler) {
             exit(1);
         }
 
-        clientHandler.handleClient(newsockfd);
+        clientHandler->handleClient(newsockfd);
     }
 }
+
 
 
 
