@@ -11,10 +11,10 @@
 class MyTestClientHandler : public ClientHandler {
 
     Solver* solver;
-    CacheManager* cm;
+    CacheManager<string,string>* cm;
 
 public:
-    MyTestClientHandler(CacheManager* c , Solver* s){
+    MyTestClientHandler(CacheManager<string,string>* c , Solver* s){
         solver = s;
         cm = c;
     }
