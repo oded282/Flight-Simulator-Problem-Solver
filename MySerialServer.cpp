@@ -18,7 +18,7 @@ void *communicationServer(void *args) {
         listen(t->sockfd, 1);
         clilen = sizeof(cli_addr);
         int i =0;
-        //time out for whiting to client.
+        //time out for waiting to client.
         while (i < 10 && newsockfd <= 0){
             newsockfd = accept(t->sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
             sleep(1);

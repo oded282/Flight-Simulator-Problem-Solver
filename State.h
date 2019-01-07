@@ -3,35 +3,24 @@
 
 #include <vector>
 
-template <class T>
 
-class State {
+
+template <class T> class State {
+
     T state;
     double cost;
-    T cameFrom;
-    std::vector<T> canGoTo;
+    State<T> cameFrom;
 
 public:
-    State(T s){
-        state = s;
-    }
+    State(T state);
 
-    bool equals(T s){
-        return s == state;
-    }
+    bool equals(T state);
 
-    void setState(T state) {
-        State::state = state;
-    }
+    void setState(T state);
 
-    void setCost(double cost) {
-        State::cost = cost;
-    }
+    void setCost(double cost);
 
-    void setCameFrom(T cameFrom) {
-        State::cameFrom = cameFrom;
-    }
-
+    void setCameFrom(T cameFrom);
 
 };
 
