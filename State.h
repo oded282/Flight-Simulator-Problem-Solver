@@ -10,7 +10,7 @@ template <class T> class State {
     T state;
     double nodeCost;
     double pathCost;
-    State<T> father;
+    State<T>* father;
 
 public:
     State(T state);
