@@ -28,8 +28,12 @@ class BestFirstSearch : public AbstractSearcher<State<T>> {
 
     void initializ (std::vector<State<T>> vector);
 public:
-    BestFirstSearch(){}
-    virtual std::vector<State<T>> search (Searchable<T> s);
+    BestFirstSearch(){
+        open();
+    }
+    std::vector<State<T>> search (Searchable<T> s);
+    //double getNumOfNodesEvaluated(){}
+    //std::vector<State<T>> backTrace(State<T> end){}
 
 
 };

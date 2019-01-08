@@ -2,7 +2,8 @@
 #define MILESTONE2_STATE_H
 
 #include <vector>
-
+#include <cstring>
+#include <limits>
 
 
 template <class T> class State {
@@ -14,8 +15,19 @@ template <class T> class State {
 
 public:
 
-    State(T state){
+
+    State<T> (T state ){
         State::state = state;
+        State::father = NULL;
+        State::nodeCost = 1;
+        State::pathCost =  std::numeric_limits<double>::infinity();
+    }
+
+    State<T> (T state , double c){
+        State::state = state;
+        State::father = NULL;
+        State::nodeCost = c;
+        State::pathCost =  std::numeric_limits<double>::infinity();
     }
 
 
