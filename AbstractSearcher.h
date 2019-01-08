@@ -11,8 +11,8 @@ protected:
 
 public:
 
-    virtual std::vector<State<T>> search (Searchable<T> s) = 0;
-    virtual double getNumOfNodesEvaluated();
+    virtual std::vector<State<T>> search (Searchable<T> s)=0;
+    double getNumOfNodesEvaluated();
     std::vector<State<T>> backTrace(State<T> end);
 
 

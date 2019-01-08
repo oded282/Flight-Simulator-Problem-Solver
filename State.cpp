@@ -1,9 +1,22 @@
-
+/*
+#include <cstring>
+#include <limits>
 #include "State.h"
 
 template <class T>
-State<T> ::State(T state){
+State<T> ::State(T state ){
     State::state = state;
+    State::father = NULL;
+    State::nodeCost = 1;
+    State::pathCost =  std::numeric_limits<double>::infinity();
+}
+
+template <class T>
+State<T> ::State(T state , double c){
+    State::state = state;
+    State::father = NULL;
+    State::nodeCost = c;
+    State::pathCost =  std::numeric_limits<double>::infinity();
 }
 
 
@@ -57,3 +70,4 @@ template<class T>
 void State<T>::setFather(const State<T> &father) {
     State::father = father;
 }
+*/

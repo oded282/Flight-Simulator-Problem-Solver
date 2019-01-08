@@ -18,8 +18,7 @@
 
 
 
-template<>
-unordered_map<State<pair<int,int>>,vector<State<pair<int,int>>>>* SearchableMatrix<std::pair<int, int>>::setStatesMatrix(std::vector<std::vector<int>> *matrix) {
+unordered_map<State<pair<int,int>>,vector<State<pair<int,int>>>>* SearchableMatrix::setStatesMatrix(std::vector<std::vector<int>> *matrix) {
     int i =0, j=0;
     std::vector<std::vector<int>>::iterator it;
     for (std::vector<int> vec : *matrix) {
@@ -50,7 +49,8 @@ int main(){
     matrix->push_back(vec1);
     matrix->push_back(vec2);
     int matrixSize = 1;
-    SearchableMatrix<std::pair<int,int>>* m = new SearchableMatrix<std::pair<int,int>>(init,goal,matrix,matrixSize);
+    std::pair<int ,int> pair1;
+    auto m = new SearchableMatrix(init,goal,matrix,matrixSize);
 
 
 }

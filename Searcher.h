@@ -8,14 +8,10 @@ template <class T>
 class Searcher {
 protected:
     double numOfNodes;
-    double totalCost;
 
 public:
 
     virtual std::vector<State<T>> search (Searchable<T> s) = 0;
-    virtual double getNumOfNodesEvaluated() = 0;
-
-
 
 };
 

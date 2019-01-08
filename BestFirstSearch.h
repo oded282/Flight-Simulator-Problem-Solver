@@ -17,16 +17,19 @@ public:
 };
 
 
+
+
+
 template <class T>
 
 class BestFirstSearch : public AbstractSearcher<State<T>> {
 
     std::priority_queue <State<T>,std::vector<State<T>>,myComparator<T>> open;
 
+    void initializ (std::vector<State<T>> vector);
 public:
-
-
-    std::vector<State<T>> search (Searchable<T> s);
+    BestFirstSearch(){}
+    virtual std::vector<State<T>> search (Searchable<T> s);
 
 
 };
