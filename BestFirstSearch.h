@@ -3,7 +3,8 @@
 
 
 #include <queue>
-#include "Searcher.h"
+#include "AbstractSearcher.h"
+
 template <class T>
 
 class myComparator
@@ -11,14 +12,14 @@ class myComparator
 public:
     int operator() (const State<T>& p1, const State<T>& p2)
     {
-        return p1.getCost() > p2.getCost();
+        return p1.getPathCost() > p2.getPathCost();
     }
 };
 
 
 template <class T>
 
-class BestFirstSearch : public Searcher<State<T>> {
+class BestFirstSearch : public AbstractSearcher<State<T>> {
 
     std::priority_queue <State<T>,std::vector<State<T>>,myComparator<T>> open;
 
@@ -26,8 +27,6 @@ public:
 
 
     std::vector<State<T>> search (Searchable<T> s);
-
-    std::vector<State<T>> backTrace(State<T> end);
 
 
 };

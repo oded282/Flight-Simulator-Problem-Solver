@@ -22,6 +22,8 @@ public:
 
     std::vector<State<T>> getAllPossibleStates(State<T> s);
 
+    std::vector<State<T>> getAllStates();
+
 };
 
 

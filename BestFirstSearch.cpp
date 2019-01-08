@@ -29,42 +29,39 @@ public:
 
 
 template<class T>
-std::vector<State<T>> BestFirstSearch<T>::backTrace(State<T> state) {
-    std::vector<State<T>> trace;
-    while (state != NULL) {
-        trace.push_back(state);
-        state = state.getFather();
-    }
-    return trace;
-}
-
-template<class T>
 std::vector<State<T>> BestFirstSearch<T>::search(Searchable<T> s) {
+    //TODO initialis func.
+    // initial open
     s.getInitial().setPathCost(s.getInitial().getCost());
     open.push(s.getInitial());
-    std::unordered_set<State<T>> close;
+    std::unordered_set<State<T>> closed;
 
     while (!open.empty()) {
-
+        //TODO check if this is the right place for counting.
+        this->numOfNodes++;
+        // get the most lower path cost.
         State<T> n = open.top();
         open.pop();
-
-        close.insert(n);
-
+        // insert to closed.
+        closed.insert(n);
+        // check if it is the goal.
         if (n.equals(s.getGoal())) {
             return backTrace(s.getGoal());
         }
-
+        // get all the neighbors.
         std::vector<State<T>> succerssors = s.getAllPossibleStates(n);
-
+        // remove the father.
+        succerssors.erase(n);
         for (State<T> s : succerssors) {
+
             double currentPathCost = n.setPathCost() + s.getCost();
-            if (MyQueue<T>::find(s) != s && close.find(s) == close.end()) {
+            // if s is not in open and not in closed.
+            if (MyQueue<T>::find(s) != s && closed.find(s) == closed.end()) {
                 s.setFather(n);
                 s.setPathCost(currentPathCost);
                 open.push(s);
 
-            } else if (currentPathCost < s.getPathCost()) {
+                } else if (currentPathCost < s.getPathCost()) {
                 s.setFather(n);
                 s.setPathCost(currentPathCost);
                 if (MyQueue<T>::find(s) != s) {
@@ -75,13 +72,5 @@ std::vector<State<T>> BestFirstSearch<T>::search(Searchable<T> s) {
     }
     std::vector<State<T>> v;
     return v;
-}
-
-int main (){
-
-
-
-
-
 }
 
