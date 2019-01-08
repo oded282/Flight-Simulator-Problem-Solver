@@ -3,6 +3,7 @@
 
 
 #include "Searchable.h"
+template <class T>
 
 class Searcher {
 
@@ -11,8 +12,8 @@ class Searcher {
 
 public:
 
-    double search (Searchable s);
-    double getNumOfNodesEvaluated();
+    std::vector<State<T>> search (Searchable<T> s) = 0;
+    double getNumOfNodesEvaluated() = 0;
 
 
 

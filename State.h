@@ -8,8 +8,9 @@
 template <class T> class State {
 
     T state;
-    double cost;
-    State<T> cameFrom;
+    double nodeCost;
+    double pathCost;
+    State<T> father;
 
 public:
     State(T state);
@@ -18,10 +19,21 @@ public:
 
     void setState(T state);
 
-    void setCost(double cost);
+    void setNodeCost(double nodeCost);
 
-    void setCameFrom(T cameFrom);
+    void setPathCost(double pathCost);
 
+    void setFather(const State<T> &father);
+
+    //void setFather(T father);
+
+    double getCost();
+
+    State<T> getFather();
+
+    double getNodeCost() const;
+
+    double getPathCost() const;
 };
 
 

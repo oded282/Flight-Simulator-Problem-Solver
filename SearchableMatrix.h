@@ -5,6 +5,8 @@
 
 
 #include "Searchable.h"
+template <class T>
+
 
 class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
@@ -13,8 +15,8 @@ class SearchableMatrix : public Searchable<std::pair<int,int>> {
 public:
 
     SearchableMatrix(State<std::pair<int,int>> initial ,State<std::pair<int,int>> goal){
-        Searchable::initial = initial;
-        Searchable::goal = goal;
+        this->initial = initial;
+        this->goal = goal;
     }
 
 };

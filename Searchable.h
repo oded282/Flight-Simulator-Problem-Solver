@@ -20,6 +20,8 @@ public:
 
     const State<T> &getGoal() = 0;
 
+    std::vector<State<T>> getAllPossibleStates(State<T> s);
+
 };
 
 
