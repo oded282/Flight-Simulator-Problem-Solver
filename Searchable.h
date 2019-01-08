@@ -8,6 +8,7 @@ template <class T>
 
 class Searchable {
 
+protected:
     State<T> initial;
     State<T> goal;
     std::unordered_map<State<T>,std::vector<State<T>>> possibleStates;

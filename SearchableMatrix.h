@@ -6,13 +6,13 @@
 
 #include "Searchable.h"
 
-class SearchableMatrix : public Searchable<T> {
+class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
-    std::pair<int,int>
+    std::pair<int,int> pair;
 
 public:
 
-    SearchableMatrix(State<T> initial ,State<T> goal){
+    SearchableMatrix(State<std::pair<int,int>> initial ,State<std::pair<int,int>> goal){
         Searchable::initial = initial;
         Searchable::goal = goal;
     }
