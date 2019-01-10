@@ -39,7 +39,7 @@ SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>> matrix) {
     int i = 0, j = 0;
     std::vector<std::vector<State<std::pair<int, int>>>> tempMatrix;
     std::vector<State<std::pair<int, int>>> tempVec;
-    std::vector<State<std::pair<int, int>>> *tempVec2;
+    auto tempAllStates = new std::vector<State<std::pair<int, int>>>();
     for (std::vector<double> vec : matrix) { // create matrix of state and array of states.
         for (double c : vec) {
             std::pair<int, int> pair(i, j);
@@ -48,13 +48,26 @@ SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>> matrix) {
             j++;
         }
         tempMatrix.push_back(tempVec);
-        //(*tempVec2).insert((*tempVec2).end(),tempVec.begin(),tempVec.end());
+        (*tempAllStates).insert(tempAllStates->end(),tempVec.begin(),tempVec.end());
         tempVec.erase(tempVec.begin(), tempVec.end());
         j = 0;
         i++;
     }
+    allStates = tempAllStates;
     return tempMatrix;
 }
+
+std::vector<State<std::pair<int,int>>>*  SearchableMatrix::getAllStates(){
+    return allStates;
+}
+
+State<std::pair<int,int>>* SearchableMatrix::getInitial(){
+    return initial;
+};
+
+State<std::pair<int,int>>* SearchableMatrix::getGoal(){
+    return goal;
+};
 
 
 int main() {
@@ -83,6 +96,5 @@ int main() {
     matrix.push_back(vec3);
     int matrixSize = 3;
     SearchableMatrix *m = new SearchableMatrix(init, goal, matrix, matrixSize);
-    m->getPossibleStates(m->getSomeStateTest());
 
 }

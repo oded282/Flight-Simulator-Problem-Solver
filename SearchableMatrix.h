@@ -23,19 +23,15 @@ public:
 
     }
 
-    std::vector<State<std::pair<int, int>>> *getPossibleStates(std::pair<int, int> s);
+    virtual std::vector<State<std::pair<int, int>>>* getPossibleStates(std::pair<int, int> pair);
 
-    virtual std::vector<State<std::pair<int,int>>> getAllStates(){};
+    virtual std::vector<State<std::pair<int,int>>>* getAllStates();
 
-    virtual State<std::pair<int,int>>* getInitial(){};
+    virtual State<std::pair<int,int>>* getInitial();
 
-    virtual State<std::pair<int,int>>* getGoal(){};
+    virtual State<std::pair<int,int>>* getGoal();
 
     std::vector<std::vector<State<std::pair<int,int>>>> setStatesMatrix(std::vector<std::vector<double>> matrix);
-
-    std::pair<int,int> getSomeStateTest(){
-        return stateMatrix[1][1].getState();
-    }
 
 };
 

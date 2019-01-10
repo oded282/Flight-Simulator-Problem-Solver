@@ -11,7 +11,7 @@ protected:
 
 public:
 
-    //virtual std::vector<State<T>> search (Searchable<T> s) = 0;
+    virtual std::vector<State<T>>* search (Searchable<T>* s) = 0;
 
 };
 
