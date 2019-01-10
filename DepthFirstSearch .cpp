@@ -1,5 +1,5 @@
 #include <stack>
-#include "DFS.h"
+#include "DepthFirstSearch .h"
 
 
 template <class T>
@@ -11,10 +11,7 @@ void DFS<T>::initializ (std::vector<State<T>> vector){
         this->mapTimeD[s] = 0;
         this->mapTimeF[s] = 0;
     }
-
-
 }
-
 
 
 template <class T>
@@ -22,6 +19,7 @@ std::vector<State<T>> DFS<T>::search(Searchable<T> s) {
 
     initializ(s.getAllStates());
     std::stack<State<T>> stack;
+    s.getInitial()->setPathCost(s.getInitial()->getNodeCost());
     stack.push(s.getInitial());
     unsigned int t = 0;
 
@@ -40,6 +38,10 @@ std::vector<State<T>> DFS<T>::search(Searchable<T> s) {
         succerssors.erase(n);
 
         for(State<T> it : succerssors) {
+
+            if (it.getNodeCost() == -1){
+                continue;
+            }
 
             if (mapColor.at(it) == WHITE) {
                 mapColor.at(n) = GRAY;

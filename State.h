@@ -4,57 +4,56 @@
 #include <vector>
 #include <cstring>
 #include <limits>
+#include <cstdlib>
 
 
-
-
-
-
-
-template <class T>
+template<class T>
 class State {
 
     T state;
     double nodeCost;
     double pathCost;
-    State<T>* father;
+    State<T> *father;
+    int numHash;
 
 public:
 
 
-    State<T> (T state ){
+    State<T>(T state) {
         State::state = state;
         State::father = NULL;
         State::nodeCost = 1;
-        State::pathCost =  std::numeric_limits<double>::infinity();
+        State::pathCost = std::numeric_limits<double>::infinity();
+        State::numHash = rand() + 1;
     }
 
-    State<T> (T state , double c){
+    State<T>(T state, double c) {
         State::state = state;
         State::father = NULL;
         State::nodeCost = c;
-        State::pathCost =  std::numeric_limits<double>::infinity();
+        State::pathCost = std::numeric_limits<double>::infinity();
     }
 
-
-
-    bool equals(T state){
+    bool equals(T state) {
         return state == State::state;
     }
 
-
+    int getNumHash() const{
+        return numHash;
+    }
 
     void setState(T state) {
         State::state = state;
     }
 
-    double getCost(){
+    T getState() {
+        return State::state ;
+    }
+
+    double getCost() {
         return nodeCost;
     }
 
-    T getState(){
-        return State::state;
-    }
 
     State<T> getFather() {
         return father;
@@ -83,9 +82,25 @@ public:
         State::father = father;
     }
 
+    bool operator==(const State<T> &anotherLine) const
+    {
+        return (state == anotherLine.state);
+    }
 
 };
 
+namespace std
+{
+    template <>
+    struct hash<State<pair<int,int>>>
+    {
+        size_t operator()(const State<pair<int,int>>& k) const
+        {
+            // Compute individual hash values for two data members and combine them using XOR and bit shifting
+            return (size_t)k.getNumHash();
+        }
+    };
+}
 
 
 #endif //MILESTONE2_STATE_H

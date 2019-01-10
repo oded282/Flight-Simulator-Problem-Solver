@@ -18,8 +18,6 @@ public:
 
 
 
-
-
 template <class T>
 
 class BestFirstSearch : public AbstractSearcher<State<T>> {
@@ -28,9 +26,7 @@ class BestFirstSearch : public AbstractSearcher<State<T>> {
 
     void initializ (std::vector<State<T>> vector);
 public:
-    BestFirstSearch(){
-        open();
-    }
+    BestFirstSearch(){}
     std::vector<State<T>> search (Searchable<T> s);
     //double getNumOfNodesEvaluated(){}
     //std::vector<State<T>> backTrace(State<T> end){}
