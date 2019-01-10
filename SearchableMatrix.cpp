@@ -66,7 +66,7 @@ State<std::pair<int,int>>* SearchableMatrix::getInitial(){
 };
 
 State<std::pair<int,int>>* SearchableMatrix::getGoal(){
-    return goal;
+    return this->goal;
 };
 
 

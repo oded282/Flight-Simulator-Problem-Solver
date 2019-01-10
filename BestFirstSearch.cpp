@@ -1,117 +1,24 @@
-#include <unordered_map>
+#include <utility>
 #include "BestFirstSearch.h"
 #include "SearchableMatrix.h"
-#include <queue>
-#include <bits/unordered_set.h>
 
-using namespace std;
-
-template<
-        class T,
-        class Container = std::vector<T>,
-        class Compare = std::less<typename Container::value_type>
->
-class MyQueue : public std::priority_queue<T, Container, myComparator<T>> {
-public:
-    typedef typename
-    std::priority_queue<
-            T,
-            Container,
-            Compare>::container_type::const_iterator const_iterator;
-
-    const_iterator find(const T &val) const {
-        auto first = this->c.cbegin();
-        auto last = this->c.cend();
-        while (first != last) {
-            if (*first == val) return first;
-            ++first;
-        }
-        return last;
-    }
-};
-
-template <class T>
-
-void BestFirstSearch<T>::initializ (std::vector<State<T>> vector){
-
-    for (State<T> s : vector ){
-
-    }
-
-
-}
-
-
-template<class T>
-std::vector<State<T>> BestFirstSearch<T>::search(Searchable<T> s) {
-    initializ(s.getAllStates());
-    //TODO initialis func.
-    // initial open
-    s.getInitial().setPathCost(s.getInitial().getCost());
-    open.push(s.getInitial());
-    std::unordered_set<State<T>> closed;
-
-    while (!open.empty()) {
-        //TODO check if this is the right place for counting.
-        this->numOfNodes++;
-        // get the most lower path cost.
-        State<T> n = open.top();
-        open.pop();
-        // insert to closed.
-        closed.insert(n);
-        // check if it is the goal.
-        if (n.equals(s.getGoal())) {
-            return backTrace(s.getGoal());
-        }
-        // get all the neighbors.
-        std::vector<State<T>> succerssors = s.getAllPossibleStates(n.getState());
-        // remove the father.
-        succerssors.erase(n);
-        for (State<T> s : succerssors) {
-            if (s.getNodeCost() == -1){
-                continue;
-            }
-            double currentPathCost = n.setPathCost() + s.getCost();
-            // if s is not in open and not in closed.
-            if (MyQueue<T>::find(s) != s && closed.contains(s)) {
-                s.setFather(n);
-                s.setPathCost(currentPathCost);
-                open.push(s);
-
-                } else if (currentPathCost < s.getPathCost()) {
-                s.setFather(n);
-                s.setPathCost(currentPathCost);
-                if (MyQueue<T>::find(s) != s) {
-                    open.push(s);
-                }
-            }
-        }
-    }
-    std::vector<State<T>> v;
-    return v;
-}
-/*
 int main(){
 
     std::vector<std::vector<double >> matrix = {{0 , 4 , 7} , {2 , 5 ,8} , {3, 6,9}};
 
     std::pair<int,int> p1 (0,0) ;
-    State<std::pair<int,int>> s1(p1 , 0);
+    auto s1 = new State<std::pair<int,int>> (p1 , 0);
 
     std::pair<int,int> p8 (2,2) ;
-    State<std::pair<int,int>> s8(p8 , 0);
-    auto s = new SearchableMatrix(&s1 , &s8 , matrix , 3);
+    auto s8 = new State<std::pair<int,int>> (p8 , 0);
+    auto s = new SearchableMatrix(s1 , s8 , matrix , 3);
+
+    auto b = new BestFirstSearch<std::pair<int,int>>();
+
+    b->search(s);
 
 
 
-
-
-
-
-
-
-
-*/
 
 /*
     std::pair<int,int> p1 (0,0) ;
@@ -204,6 +111,5 @@ int main(){
 
     auto bfs = new BestFirstSearch<State<std::pair<int,int>>>();
 */
-   // return 1;
-//}
-
+    return 1;
+}

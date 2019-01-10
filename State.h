@@ -34,8 +34,8 @@ public:
         State::pathCost = std::numeric_limits<double>::infinity();
     }
 
-    bool equals(T state) {
-        return state == State::state;
+    bool equals(State<T>* state) {
+        return state->getState() == State::state;
     }
 
     int getNumHash() const{
@@ -85,6 +85,13 @@ public:
     bool operator==(const State<T> &anotherLine) const
     {
         return (state == anotherLine.state);
+    }
+
+    bool operator< (const State<T>& b) {
+        return pathCost < b.getPathCost();
+    }
+    bool operator> (const State<T>& b) {
+        return pathCost > b.getPathCost();
     }
 
 };

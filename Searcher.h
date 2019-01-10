@@ -10,8 +10,8 @@ protected:
     double numOfNodes;
 
 public:
-
-    virtual std::vector<State<T>>* search (Searchable<T>* s) = 0;
+    Searcher(){}
+   // virtual std::vector<State<T>*>* search (Searchable<State<T>>* s) = 0;
 
 };
 
