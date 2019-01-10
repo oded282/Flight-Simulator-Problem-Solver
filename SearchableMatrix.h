@@ -9,23 +9,21 @@
 
 class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
-    //std::unordered_map<State<std::pair<int,int>>,std::vector<State<std::pair<int,int>>>>* stateMatrix;
-    std::vector<std::vector<State<std::pair<int,int>>>>* stateMatrix;
+    std::vector<std::vector<State<std::pair<int,int>>>> stateMatrix;
     int matrixSize;
 
 public:
 
-    SearchableMatrix(State<std::pair<int,int>>* initial ,State<std::pair<int,int>>* goal, std::vector<std::vector<int>>* matrix, int matrixSize){
+    SearchableMatrix(State<std::pair<int,int>>* initial ,State<std::pair<int,int>>* goal, std::vector<std::vector<double>> matrix, int matrixSize){
         this->initial = initial;
         this->goal = goal;
         this->matrixSize = matrixSize;
 
         stateMatrix = setStatesMatrix(matrix);
-       // this->possibleStates = setPossibleStates(stateMatrix);
 
     }
 
-    virtual std::vector<State<std::pair<int,int>>*>* getAllPossibleStates(State<std::pair<int,int>> s){};
+    std::vector<State<std::pair<int, int>>> *getPossibleStates(std::pair<int, int> s);
 
     virtual std::vector<State<std::pair<int,int>>> getAllStates(){};
 
@@ -33,8 +31,11 @@ public:
 
     virtual State<std::pair<int,int>>* getGoal(){};
 
-    //std::unordered_map<State<State<std::pair<int,int>>*>*,std::vector<State<State<std::pair<int,int>>*>*>*>* setPossibleStates(std::vector<std::vector<State<std::pair<int,int>>*>>* stateMatrix);
-    std::vector<std::vector<State<std::pair<int,int>>>>* setStatesMatrix(std::vector<std::vector<int>>* matrix);
+    std::vector<std::vector<State<std::pair<int,int>>>> setStatesMatrix(std::vector<std::vector<double>> matrix);
+
+    std::pair<int,int> getSomeStateTest(){
+        return stateMatrix[1][1].getState();
+    }
 
 };
 

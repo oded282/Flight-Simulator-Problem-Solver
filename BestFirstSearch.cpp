@@ -87,7 +87,7 @@ std::vector<State<T>> BestFirstSearch<T>::search(Searchable<T> s) {
     return v;
 }
 
-
+//
 //int main(){
 //
 //    std::pair<int,int> p1 (0,0) ;
@@ -179,5 +179,4 @@ std::vector<State<T>> BestFirstSearch<T>::search(Searchable<T> s) {
 //
 //    return 1;
 //}
-//
-//
+

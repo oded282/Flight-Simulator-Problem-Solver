@@ -2,36 +2,54 @@
 #include "SearchableMatrix.h"
 
 
+std::vector<State<std::pair<int, int>>>* SearchableMatrix::getPossibleStates(std::pair<int, int> pair) {
+    int i = pair.first;
+    int j = pair.second;
+    auto temp = new std::vector<State<std::pair<int, int>>>();
+    //for (int i = 0; i < matrixSize; i++) {
+        //for (int j = 0; j < matrixSize; j++) {
+            //temp.erase(temp.begin(), temp.end());
+            if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
+                temp->push_back(stateMatrix[j + 1][i]);
+                temp->push_back(stateMatrix[j - 1][i]);
+                temp->push_back(stateMatrix[j][i + 1]);
+                temp->push_back(stateMatrix[j][i - 1]);
+                return temp;
+            }
+            if (j - 1 >= 0) {
+                temp->push_back(stateMatrix[j - 1][i]);
+            }
+            if (j + 1 < matrixSize) {
+                temp->push_back(stateMatrix[j + 1][i]);
+            }
+            if (i - 1 >= 0) {
+                temp->push_back(stateMatrix[j][i - 1]);
+            }
+            if (i + 1 < matrixSize) {
+                temp->push_back(stateMatrix[j][i + 1]);
+            }
+            return temp;
+       // }
+    //}
+}
 
-//std::unordered_map<State<State<std::pair<int,int>>*>*,std::vector<State<State<std::pair<int,int>>*>*>*>* SearchableMatrix::setPossibleStates(std::vector<std::vector<State<std::pair<int,int>>*>>*stateMatrix) {
-//    for (std::vector<State<std::pair<int,int>>> vec : *stateMatrix) {
-//        for (State<std::pair<int,int>> s : *stateMatrix) {
-//
-//        }
-//    }
-//}
-//
 
-
-
-
-
-
-
-
-std::vector<std::vector<State<std::pair<int,int>>>>* SearchableMatrix::setStatesMatrix(std::vector<std::vector<int>> *matrix) {
-    int i =0, j=0;
-    std::vector<std::vector<State<std::pair<int,int>>>>* tempMatrix;
-    std::vector<State<std::pair<int,int>>> tempVec;
-    for (std::vector<int> vec : *matrix) {
-        for (int c : vec) {
-            std::pair <int,int> pair (i,j);
-            State<std::pair <int,int>> s = State<std::pair <int,int>>(pair);
-            s.setNodeCost(c);
+std::vector<std::vector<State<std::pair<int, int>>>>
+SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>> matrix) {
+    int i = 0, j = 0;
+    std::vector<std::vector<State<std::pair<int, int>>>> tempMatrix;
+    std::vector<State<std::pair<int, int>>> tempVec;
+    std::vector<State<std::pair<int, int>>> *tempVec2;
+    for (std::vector<double> vec : matrix) { // create matrix of state and array of states.
+        for (double c : vec) {
+            std::pair<int, int> pair(i, j);
+            State<std::pair<int, int>> s = State<std::pair<int, int>>(pair,c);
             tempVec.push_back(s);
             j++;
         }
-        tempMatrix->push_back(tempVec); //  need to initial all states as well
+        tempMatrix.push_back(tempVec);
+        //(*tempVec2).insert((*tempVec2).end(),tempVec.begin(),tempVec.end());
+        tempVec.erase(tempVec.begin(), tempVec.end());
         j = 0;
         i++;
     }
@@ -39,26 +57,32 @@ std::vector<std::vector<State<std::pair<int,int>>>>* SearchableMatrix::setStates
 }
 
 
+int main() {
+    std::pair<int, int> pair00(0, 0);
+    std::pair<int, int> pair11(1, 1);
 
-
-int main(){
-    std::pair <int,int> pair00 (0,0);
-    std::pair <int,int> pair11 (1,1);
-
-    std::vector<int> vec2;
-    std::vector<int> vec1;
+    std::vector<double> vec3;
+    std::vector<double> vec2;
+    std::vector<double> vec1;
     vec1.push_back(1);
     vec1.push_back(2);
-    vec2.push_back(3);
+    vec1.push_back(3);
     vec2.push_back(4);
+    vec2.push_back(5);
+    vec2.push_back(6);
+    vec3.push_back(7);
+    vec3.push_back(8);
+    vec3.push_back(9);
 
-    auto init = new State<std::pair<int,int>>(pair00);
-    auto goal = new State<std::pair<int,int>>(pair11);
+    auto init = new State<std::pair<int, int>>(pair00);
+    auto goal = new State<std::pair<int, int>>(pair11);
 
-    std::vector<std::vector<int>>* matrix;
-    matrix->push_back(vec1);
-    matrix->push_back(vec2);
-    int matrixSize = 1;
-    SearchableMatrix* m = new SearchableMatrix(init,goal,matrix,matrixSize);
+    std::vector<std::vector<double>> matrix;
+    matrix.push_back(vec1);
+    matrix.push_back(vec2);
+    matrix.push_back(vec3);
+    int matrixSize = 3;
+    SearchableMatrix *m = new SearchableMatrix(init, goal, matrix, matrixSize);
+    m->getPossibleStates(m->getSomeStateTest());
 
 }

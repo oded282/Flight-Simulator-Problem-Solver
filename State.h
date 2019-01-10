@@ -6,7 +6,13 @@
 #include <limits>
 
 
-template <class T> class State {
+
+
+
+
+
+template <class T>
+class State {
 
     T state;
     double nodeCost;
@@ -46,6 +52,9 @@ public:
         return nodeCost;
     }
 
+    T getState(){
+        return State::state;
+    }
 
     State<T> getFather() {
         return father;
@@ -73,7 +82,10 @@ public:
     void setFather(const State<T> &father) {
         State::father = father;
     }
+
+
 };
+
 
 
 #endif //MILESTONE2_STATE_H

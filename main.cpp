@@ -5,6 +5,25 @@
 #include "MyTestClientHandler.h"
 #include "FileCacheManager.h"
 #include "StringRevers.h"
+#include "State.h"
+
+template <class T>
+struct KeyHasher
+{
+    std::size_t operator()(const State<T> k) const
+    {
+        using std::size_t;
+        using std::hash;
+        using std::string;
+
+        return ((hash<string>()(k.first)
+                 ^ (hash<string>()(k.second) << 1)) >> 1)
+               ^ (hash<int>()(k.third) << 1);
+    }
+};
+
+
+
 //
 //int main (){
 //
