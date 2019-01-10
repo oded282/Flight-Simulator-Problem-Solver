@@ -4,6 +4,8 @@
 
 #include "Searcher.h"
 
+enum {WHITE ,GRAY , BLACK };
+
 template <class T>
 class AbstractSearcher : public Searcher<State<T>>{
 

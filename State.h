@@ -50,11 +50,6 @@ public:
         return State::state ;
     }
 
-    double getCost() {
-        return nodeCost;
-    }
-
-
     State<T> getFather() {
         return father;
     }
