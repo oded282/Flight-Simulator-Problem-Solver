@@ -69,7 +69,7 @@ State<std::pair<int,int>>* SearchableMatrix::getGoal(){
     return this->goal;
 };
 
-
+/*
 int main() {
     std::pair<int, int> pair00(0, 0);
     std::pair<int, int> pair11(1, 1);
@@ -98,3 +98,4 @@ int main() {
     SearchableMatrix *m = new SearchableMatrix(init, goal, matrix, matrixSize);
 
 }
+ */

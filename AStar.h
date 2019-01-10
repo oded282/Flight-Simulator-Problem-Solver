@@ -10,9 +10,9 @@ class AStar : public AbstractSearcher<T> {
 
 
     void initialDistance(std::vector<State<T>> s){
-        for(State<T> s : ){
+    //    for(State<T> s : ){
 
-        }
+      //  }
     }
 
 

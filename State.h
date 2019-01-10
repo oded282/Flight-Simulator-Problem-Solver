@@ -50,7 +50,7 @@ public:
         return State::state ;
     }
 
-    State<T> getFather() {
+    State<T>* getFather() {
         return father;
     }
 
@@ -73,14 +73,15 @@ public:
     }
 
 
-    void setFather(const State<T> &father) {
+    void setFather(State<T>* father) {
         State::father = father;
     }
 
-    bool operator==(const State<T> &anotherLine) const
+    /*bool operator==(State<T> anotherLine)
     {
-        return (state == anotherLine.state);
-    }
+        return (state == anotherLine.getState());
+    }*/
+
 
     bool operator< (const State<T>& b) {
         return pathCost < b.getPathCost();
@@ -90,7 +91,7 @@ public:
     }
 
 };
-
+/*
 namespace std
 {
     template <>
@@ -104,5 +105,5 @@ namespace std
     };
 }
 
-
+*/
 #endif //MILESTONE2_STATE_H

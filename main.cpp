@@ -6,32 +6,23 @@
 #include "FileCacheManager.h"
 #include "StringRevers.h"
 #include "State.h"
+#include "SearchableMatrix.h"
+#include "BestFirstSearch.h"
 
-template <class T>
-struct KeyHasher
-{
-    std::size_t operator()(const State<T> k) const
-    {
-        using std::size_t;
-        using std::hash;
-        using std::string;
+int main(){
 
-        return ((hash<string>()(k.first)
-                 ^ (hash<string>()(k.second) << 1)) >> 1)
-               ^ (hash<int>()(k.third) << 1);
-    }
-};
+    std::vector<std::vector<double >> matrix = {{0 , 4 , 7} , {2 , 5 ,8} , {3, 6,9}};
 
+    std::pair<int,int> p1 (0,0) ;
+    auto s1 = new State<std::pair<int,int>> (p1 , 0);
 
+    std::pair<int,int> p8 (2,2) ;
+    auto s8 = new State<std::pair<int,int>> (p8 , 0);
+    auto s = new SearchableMatrix(s1 , s8 , matrix , 3);
 
-//
-//int main (){
-//
-//    Server* server = new MySerialServer();
-//    server->open(5402 , new MyTestClientHandler(new FileCacheManager() , new StringRevers()));
-//
-//    sleep(500);
-//
-//
-//    return 1;
-//}
+    auto b = new BestFirstSearch<std::pair<int,int>>();
+
+    b->search(s);
+
+    return 1;
+}
