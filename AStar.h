@@ -6,15 +6,11 @@
 template<class T>
 class AStar : public AbstractSearcher<T> {
 
-    std::unordered_map<State<T>, unsigned int>distansMap;
+    std::unordered_map<State<T>, unsigned int>distanceMap;
 
 
-    void initialize(std::vector<State<T>> s){
-        for(State<T> state:s){
-            //this->visited[s] = WHITE;
-
-
-
+    void initialDistance(std::vector<State<T>> s){
+        for(State<T> s : ){
 
         }
     }
