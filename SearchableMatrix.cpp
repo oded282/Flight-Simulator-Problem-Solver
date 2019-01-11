@@ -2,53 +2,50 @@
 #include "SearchableMatrix.h"
 
 
-std::vector<State<std::pair<int, int>>>* SearchableMatrix::getPossibleStates(std::pair<int, int> pair) {
+std::vector<State<std::pair<int, int>>*>* SearchableMatrix::getPossibleStates(std::pair<int, int> pair) {
     int i = pair.first;
     int j = pair.second;
-    auto temp = new std::vector<State<std::pair<int, int>>>();
-    //for (int i = 0; i < matrixSize; i++) {
-        //for (int j = 0; j < matrixSize; j++) {
-            //temp.erase(temp.begin(), temp.end());
-            if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
-                temp->push_back(stateMatrix[j + 1][i]);
-                temp->push_back(stateMatrix[j - 1][i]);
-                temp->push_back(stateMatrix[j][i + 1]);
-                temp->push_back(stateMatrix[j][i - 1]);
-                return temp;
-            }
-            if (j - 1 >= 0) {
-                temp->push_back(stateMatrix[j - 1][i]);
-            }
-            if (j + 1 < matrixSize) {
-                temp->push_back(stateMatrix[j + 1][i]);
-            }
-            if (i - 1 >= 0) {
-                temp->push_back(stateMatrix[j][i - 1]);
-            }
-            if (i + 1 < matrixSize) {
-                temp->push_back(stateMatrix[j][i + 1]);
-            }
-            return temp;
-       // }
-    //}
+    auto temp = new std::vector<State<std::pair<int, int>> *>();
+
+    if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
+
+        temp->push_back((stateMatrix->at(j + 1))->at(i));
+        temp->push_back((stateMatrix->at(j - 1))->at(i));
+        temp->push_back((stateMatrix->at(j))->at(i + 1));
+        temp->push_back((stateMatrix->at(j))->at(i - 1));
+        return temp;
+    }
+    if (j - 1 >= 0) {
+        temp->push_back((stateMatrix->at(j-1))->at(i));
+    }
+    if (j + 1 < matrixSize) {
+        temp->push_back((stateMatrix->at(j + 1))->at(i));
+    }
+    if (i - 1 >= 0) {
+        temp->push_back((stateMatrix->at(j))->at(i -1));
+    }
+    if (i + 1 < matrixSize) {
+        temp->push_back((stateMatrix->at(j))->at(i + 1));
+    }
+    return temp;
 }
 
 
-std::vector<std::vector<State<std::pair<int, int>>*>*>*
-SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>>* matrix) {
+std::vector<std::vector<State<std::pair<int, int>> *> *> *
+SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>> *matrix) {
     int i = 0, j = 0;
-    std::vector<std::vector<State<std::pair<int, int>>*>*>* tempMatrix;
-    std::vector<State<std::pair<int, int>>*>* tempVec;
-    auto tempAllStates = new std::vector<State<std::pair<int, int>>*>();
+    std::vector<std::vector<State<std::pair<int, int>> *> *> *tempMatrix;
+    std::vector<State<std::pair<int, int>> *> *tempVec;
+    auto tempAllStates = new std::vector<State<std::pair<int, int>> *>();
     for (std::vector<double> vec : *matrix) { // create matrix of state and array of states.
         for (double c : vec) {
             auto pair = new std::pair<int, int>(i, j);
-            auto s = new State<std::pair<int, int>>(pair,c);
+            auto s = new State<std::pair<int, int>>(pair, c);
             tempVec->push_back(s);
             j++;
         }
         tempMatrix->push_back(tempVec);
-        (*tempAllStates).insert(tempAllStates->end(),tempVec.begin(),tempVec.end());
+        (*tempAllStates).insert(tempAllStates->end(), tempVec->begin(), tempVec->end());
         tempVec->erase(tempVec->begin(), tempVec->end());
         j = 0;
         i++;
@@ -57,15 +54,15 @@ SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>>* matrix) {
     return tempMatrix;
 }
 
-std::vector<State<std::pair<int,int>>>*  SearchableMatrix::getAllStates(){
+std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getAllStates() {
     return allStates;
 }
 
-State<std::pair<int,int>>* SearchableMatrix::getInitial(){
+State<std::pair<int, int>> *SearchableMatrix::getInitial() {
     return initial;
 };
 
-State<std::pair<int,int>>* SearchableMatrix::getGoal(){
+State<std::pair<int, int>> *SearchableMatrix::getGoal() {
     return this->goal;
 };
 

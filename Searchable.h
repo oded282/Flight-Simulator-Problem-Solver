@@ -21,10 +21,10 @@ public:
 
     virtual State<T>* getGoal() = 0;
 
-    virtual std::vector<State<T>>* getAllStates() = 0;
+    virtual std::vector<State<T>*>* getAllStates() = 0;
 
 
-    virtual std::vector<State<T>>* getPossibleStates(T t) = 0;
+    virtual std::vector<State<T>*>* getPossibleStates(T t) = 0;
 
 };
 

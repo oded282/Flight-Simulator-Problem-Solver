@@ -23,9 +23,9 @@ public:
 
     }
 
-    virtual std::vector<State<std::pair<int, int>>>* getPossibleStates(std::pair<int, int> pair);
+    virtual std::vector<State<std::pair<int, int>>*>* getPossibleStates(std::pair<int, int> pair);
 
-    virtual std::vector<State<std::pair<int,int>>>* getAllStates();
+    virtual std::vector<State<std::pair<int,int>>*>* getAllStates();
 
     virtual State<std::pair<int,int>>* getInitial();
 
