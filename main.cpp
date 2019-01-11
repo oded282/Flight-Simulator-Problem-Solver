@@ -8,6 +8,7 @@
 #include "State.h"
 #include "SearchableMatrix.h"
 #include "BestFirstSearch.h"
+#include "BreadthFirstSearch.h"
 
 int main(){
 
@@ -18,11 +19,12 @@ int main(){
 
     std::pair<int,int> p8 (2,2) ;
     auto s8 = new State<std::pair<int,int>> (p8 , 0);
+
     auto s = new SearchableMatrix(s1 , s8 , matrix , 3);
 
-    auto b = new BestFirstSearch<std::pair<int,int>>();
+    auto b = new BreadthFirstSearch<std::pair<int,int>>();
 
-    b->search(s);
+    std::vector<State<pair<int,int>>*>* vec = b->search(s);
 
     return 1;
 }

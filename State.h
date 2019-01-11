@@ -19,7 +19,7 @@ class State {
 public:
 
 
-    State<T>(T state) {
+    State<T>(T* state) {
         State::state = state;
         State::father = NULL;
         State::nodeCost = 1;
@@ -27,7 +27,7 @@ public:
         State::numHash = rand() + 1;
     }
 
-    State<T>(T state, double c) {
+    State<T>(T* state, double c) {
         State::state = state;
         State::father = NULL;
         State::nodeCost = c;

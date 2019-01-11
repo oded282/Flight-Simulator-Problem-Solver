@@ -34,22 +34,22 @@ std::vector<State<std::pair<int, int>>>* SearchableMatrix::getPossibleStates(std
 }
 
 
-std::vector<std::vector<State<std::pair<int, int>>>>
+std::vector<std::vector<State<std::pair<int, int>*>*>*>*
 SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>> matrix) {
     int i = 0, j = 0;
-    std::vector<std::vector<State<std::pair<int, int>>>> tempMatrix;
-    std::vector<State<std::pair<int, int>>> tempVec;
-    auto tempAllStates = new std::vector<State<std::pair<int, int>>>();
+    std::vector<std::vector<State<std::pair<int, int>*>*>*>* tempMatrix;
+    std::vector<State<std::pair<int, int>*>*>* tempVec;
+    auto tempAllStates = new std::vector<State<std::pair<int, int>*>*>();
     for (std::vector<double> vec : matrix) { // create matrix of state and array of states.
         for (double c : vec) {
-            std::pair<int, int> pair(i, j);
-            State<std::pair<int, int>> s = State<std::pair<int, int>>(pair,c);
-            tempVec.push_back(s);
+            auto pair = new std::pair<int, int>(i, j);
+            auto s = new State<std::pair<int, int>>(pair,c);
+            (*tempVec)->push_back(s)
             j++;
         }
-        tempMatrix.push_back(tempVec);
+        tempMatrix->push_back(tempVec);
         (*tempAllStates).insert(tempAllStates->end(),tempVec.begin(),tempVec.end());
-        tempVec.erase(tempVec.begin(), tempVec.end());
+        tempVec->erase(tempVec->begin(), tempVec->end());
         j = 0;
         i++;
     }

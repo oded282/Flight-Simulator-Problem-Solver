@@ -12,7 +12,7 @@ class Searchable {
 protected:
     State<T>* initial;
     State<T>* goal;
-    std::vector<State<T>>* allStates;
+    std::vector<State<T*>*>* allStates;
 
 public:
     Searchable(){};

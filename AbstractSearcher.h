@@ -17,7 +17,6 @@ public:
     }
 };
 
-
 template <class T>
 class AbstractSearcher : public Searcher<State<T>>{
 protected:
@@ -27,16 +26,13 @@ protected:
 
 public:
     AbstractSearcher(){}
+
    //virtual std::vector<State<T>*>* search (Searchable<State<T>>* s)=0;
-
-
     double getNumOfNodesEvaluated(){
        return this->numOfNodes;
     };
 
-
     // get the gol after the running of the search and return the path.
-
     static std::vector<State<T>*>* backTrace(State<T>* state) {
        std::vector<State<T>*>* trace;
        while (state != NULL) {

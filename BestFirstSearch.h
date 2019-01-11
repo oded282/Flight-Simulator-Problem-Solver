@@ -8,8 +8,6 @@
 #include "AbstractSearcher.h"
 #include "State.h"
 
-
-
 template<
         class T,
         class Container = std::vector<T>,
@@ -110,7 +108,6 @@ public:
         }
         return nullptr;
     }
-
 };
 
 

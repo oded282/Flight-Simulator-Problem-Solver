@@ -31,7 +31,7 @@ public:
 
     virtual State<std::pair<int,int>>* getGoal();
 
-    std::vector<std::vector<State<std::pair<int,int>>>> setStatesMatrix(std::vector<std::vector<double>> matrix);
+    std::vector<std::vector<State<std::pair<int, int>*>*>*>* setStatesMatrix(std::vector<std::vector<double>> matrix);
 
 };
 
