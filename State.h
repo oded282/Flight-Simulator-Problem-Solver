@@ -10,7 +10,7 @@
 template<class T>
 class State {
 
-    T state;
+    T* state;
     double nodeCost;
     double pathCost;
     State<T> *father;

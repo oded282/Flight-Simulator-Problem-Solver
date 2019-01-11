@@ -3,6 +3,7 @@
 
 
 #include <queue>
+#include <map>
 #include "Searcher.h"
 
 enum color {WHITE ,GRAY , BLACK };
@@ -20,7 +21,8 @@ public:
 template <class T>
 class AbstractSearcher : public Searcher<State<T>>{
 protected:
-    std::unordered_map<State<T>*, color> visited;
+    std::map<State<T*>* , color> visited;
+    //std::unordered_map<State<T>*, color> visited;
     std::priority_queue<State<T>*,std::vector<State<T>*>,myComparator<T>> open ;
 
 

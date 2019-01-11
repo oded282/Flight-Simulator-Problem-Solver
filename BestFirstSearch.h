@@ -33,13 +33,11 @@ public:
 };
 
 
-
-
 template <class T>
 class BestFirstSearch : public AbstractSearcher<T> {
 
     void initialization (std::vector<State<T>>* vector){
-            for (State<T> s : *vector ) {
+            for (State<T>* s : *vector ) {
                 this->visited[s] = WHITE;
             }
     }
@@ -61,11 +59,12 @@ public:
     }
 
     std::vector<State<T>*>* search(Searchable<T>* s) {
-        //initialization(s->getAllStates());
+        initialization(s->getAllStates());
         //TODO initialis func.
         // initial open
-        s->getInitial()->setPathCost(s->getInitial()->getNodeCost());
-        this->open.push(s->getInitial());
+        State<T>* first = s->getInitial();
+        first->setPathCost(first->getNodeCost());
+        this->open.push(first);
         std::unordered_set<State<T>*> closed;
 
         while (!this->open.empty()) {
