@@ -35,14 +35,14 @@ public:
     }
 
     bool equals(State<T>* state) {
-        return state->getState() == State::state;
+        return *(state->getState()) == *(State::state);
     }
 
     int getNumHash() const{
         return numHash;
     }
 
-    void setState(T state) {
+    void setState(T* state) {
         State::state = state;
     }
 

@@ -36,7 +36,7 @@ public:
 template <class T>
 class BestFirstSearch : public AbstractSearcher<T> {
 
-    void initialization (std::vector<State<T>>* vector){
+    void initialization (std::vector<State<T>*>* vector){
             for (State<T>* s : *vector ) {
                 this->visited[s] = WHITE;
             }
@@ -82,25 +82,25 @@ public:
                 return v;
             }
             // get all the neighbors.
-            std::vector<State<T>>* succerssors = (s->getPossibleStates(n->getState()));
+            std::vector<State<T>*>* succerssors = (s->getPossibleStates(n->getState()));
 
-            for (State<T> it : *succerssors) {
-                if (it.getNodeCost() == -1){
+            for (State<T>* it : *succerssors) {
+                if (it->getNodeCost() == -1){
                     continue;
                 }
-                double currentPathCost = it.getPathCost() + it.getNodeCost();
+                double currentPathCost = it->getPathCost() + it->getNodeCost();
                 // if s is not in open and not in closed.
-                if (this->visited.at(&it) == WHITE) {
-                    this->visited.at(&it) = GRAY;
-                    it.setFather(n);
-                    it.setPathCost(currentPathCost);
-                    this->open.push(&it);
+                if (this->visited.at(it) == WHITE) {
+                    this->visited.at(it) = GRAY;
+                    it->setFather(n);
+                    it->setPathCost(currentPathCost);
+                    this->open.push(it);
 
-                } else if (currentPathCost < it.getPathCost() && this->visited.at(&it) != BLACK) {
-                    it.setFather(&it);
-                    it.setPathCost(currentPathCost);
-                    if (this->visited.at(&it) == GRAY) {
-                        this->open.push(&it);
+                } else if (currentPathCost < it->getPathCost() && this->visited.at(it) != BLACK) {
+                    it->setFather(it);
+                    it->setPathCost(currentPathCost);
+                    if (this->visited.at(it) == GRAY) {
+                        this->open.push(it);
                     }
                 }
             }
