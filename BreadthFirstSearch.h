@@ -6,21 +6,20 @@
 #include "AbstractSearcher.h"
 
 
-
-template <class T>
-class BreadthFirstSearch :public AbstractSearcher<State<T>>  {
-    std::queue <State<T>*> queue;
+template<class T>
+class BreadthFirstSearch : public AbstractSearcher<State<T>> {
+    std::queue<State<T>*> queue;
 
 public:
 
-    void initialize(std::vector<State<T>>* s){
-        for(State<T> state:s){
-            this->visited[s] = WHITE;
+    void initialize(std::vector<State<T>*>* vector) {
+        for (State<T> *state: *vector) {
+            this->visited[state] = WHITE;
         }
     }
 
-    static std::vector<State<T>*>* backTrace(State<T>* state) {
-        std::vector<State<T>*>* trace;
+    static std::vector<State<T> *> *backTrace(State<T> *state) {
+        std::vector<State<T> *> *trace;
         while (state != NULL) {
             trace->push_back(state);
             state = state->getFather();
@@ -29,31 +28,31 @@ public:
     }
 
 
-    virtual std::vector<State<T>*>* search(Searchable<T>* s){
+    virtual std::vector<State<T> *> *search(Searchable<T> *s) {
         initialize(s->getAllStates());
-        State<T>* first = s->getInitial();
+        State<T> *first = s->getInitial();
         first->setPathCost(first->getNodeCost());
         queue.push(first);
 
-        while(!queue.empty()){
+        while (!queue.empty()) {
 
             State<T>* currentState = queue.front();
             queue.pop();
 
-            if(currentState == s->getGoal()){
+            if (currentState == s->getGoal()) {
                 return backTrace(currentState);
             }
 
-            this->visited[currentState] = BLACK;
+            this->visited.at(currentState) = BLACK;
 
-            for(State<T> child : s->getPossibleStates(currentState)){
+            for (State<T>* child : s->getPossibleStates(currentState)) {
 
-                if (child.getNodeCost() == -1){
+                if (child->getNodeCost() == -1) {
                     continue;
                 }
                 if (this->visited.at(child) == WHITE) {
-                    child.setFather(currentState);
-                    child.setPathCost(currentState->getPathCost() + child.getNodeCost());
+                    child->setFather(currentState);
+                    child->setPathCost(currentState->getPathCost() + child->getNodeCost());
                     this->visited.at(child) = GRAY;
 
                     queue.push(child);

@@ -9,7 +9,7 @@
 #include "SearchableMatrix.h"
 #include "BestFirstSearch.h"
 #include "BreadthFirstSearch.h"
-
+/*
 int main(){
 
     std::vector<double >* v1 = new std::vector<double>{0 , 4 , 7};
@@ -30,9 +30,10 @@ int main(){
 
     auto s = new SearchableMatrix(s1 , s8 , matrix , 3);
 
-    auto b = new BestFirstSearch<std::pair<int,int>>();
+    auto b = new BreadthFirstSearch<std::pair<int,int>>();
 
     std::vector<State<pair<int,int>>*>* vec = b->search(s);
 
     return 1;
 }
+*/
