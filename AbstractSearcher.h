@@ -36,8 +36,8 @@ public:
 
     // get the gol after the running of the search and return the path.
     static std::vector<State<T>*>* backTrace(State<T>* state) {
-       std::vector<State<T>*>* trace;
-       while (state != NULL) {
+       auto trace = new std::vector<State<T>*> ;
+       while (state != nullptr) {
           trace->push_back(state);
           state = state->getFather();
        }

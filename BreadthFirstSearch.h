@@ -13,7 +13,7 @@ class BreadthFirstSearch : public AbstractSearcher<State<T>> {
 public:
 
     void initialize(std::vector<State<T>*>* vector) {
-        for (State<T> *state: *vector) {
+        for (State<T>* state: *vector) {
             this->visited[state] = WHITE;
         }
     }
@@ -28,9 +28,9 @@ public:
     }
 
 
-    virtual std::vector<State<T> *> *search(Searchable<T> *s) {
+    virtual std::vector<State<T>*> *search(Searchable<T> *s) {
         initialize(s->getAllStates());
-        State<T> *first = s->getInitial();
+        State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());
         queue.push(first);
 
