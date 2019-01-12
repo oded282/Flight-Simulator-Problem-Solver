@@ -9,12 +9,13 @@
 template<class T>
 class BreadthFirstSearch : public AbstractSearcher<State<T>> {
     std::queue<State<T>*> queue;
+    std::map<State<T>*,color> visited;
 
 public:
 
     void initialize(std::vector<State<T>*>* vector) {
         for (State<T>* state: *vector) {
-            this->visited[state] = WHITE;
+            visited[state] = WHITE;
         }
     }
 
@@ -43,17 +44,17 @@ public:
                 return backTrace(currentState);
             }
 
-            this->visited.at(currentState) = BLACK;
+            visited[currentState] = BLACK;
 
-            for (State<T>* child : s->getPossibleStates(currentState)) {
+            for (State<T>* child : *s->getPossibleStates(currentState)) {
 
                 if (child->getNodeCost() == -1) {
                     continue;
                 }
-                if (this->visited.at(child) == WHITE) {
+                if (visited.at(child) == WHITE) {
                     child->setFather(currentState);
                     child->setPathCost(currentState->getPathCost() + child->getNodeCost());
-                    this->visited.at(child) = GRAY;
+                    visited.at(child) = GRAY;
 
                     queue.push(child);
                 }

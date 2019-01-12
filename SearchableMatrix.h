@@ -14,14 +14,15 @@ class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
 public:
 
-    SearchableMatrix(State<std::pair<int,int>>* initial ,State<std::pair<int,int>>* goal, std::vector<std::vector<double>*>* matrix, int matrixSize){
-        this->initial = initial;
-        this->goal = goal;
+    SearchableMatrix(std::pair<int,int> initial ,std::pair<int,int> goal, std::vector<std::vector<double>*>* matrix, int matrixSize){
         this->matrixSize = matrixSize;
 
         stateMatrix = setStatesMatrix(matrix);
+        initAndGoal(initial,goal);
 
     }
+
+    void initAndGoal(std::pair<int,int> init, std::pair<int,int> goal);
 
     virtual std::vector<State<std::pair<int, int>>*>* getPossibleStates(State<std::pair<int, int>>* state);
 
