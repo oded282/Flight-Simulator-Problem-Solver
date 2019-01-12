@@ -10,21 +10,21 @@ template <class T>
 class Searchable {
 
 protected:
-    State<T>* initial;
-    State<T>* goal;
-    std::vector<State<T>*>* allStates;
+    State<T*>* initial;
+    State<T*>* goal;
+    std::vector<State<T*>*>* allStates;
 
 public:
     Searchable(){};
 
-    virtual State<T>* getInitial() = 0;
+    virtual State<T*>* getInitial() = 0;
 
-    virtual State<T>* getGoal() = 0;
+    virtual State<T*>* getGoal() = 0;
 
-    virtual std::vector<State<T>*>* getAllStates() = 0;
+    virtual std::vector<State<T*>*>* getAllStates() = 0;
 
 
-    virtual std::vector<State<T>*>* getPossibleStates(T t) = 0;
+    virtual std::vector<State<T*>*>* getPossibleStates(State<T*>* state) = 0;
 
 };
 

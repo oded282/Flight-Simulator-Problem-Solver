@@ -2,46 +2,52 @@
 #include "SearchableMatrix.h"
 
 
-std::vector<State<std::pair<int, int>>*>* SearchableMatrix::getPossibleStates(std::pair<int, int> pair) {
-    int i = pair.first;
-    int j = pair.second;
-    auto temp = new std::vector<State<std::pair<int, int>>*>();
+std::vector<State<std::pair<int, int>*>*>* SearchableMatrix::getPossibleStates(State<std::pair<int, int>*>* state) {
+    int i = (*state->getState())->first;
+    int j = (*state->getState())->second;
+    auto temp = new std::vector<State<std::pair<int, int>*>*>();
 
     if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
 
-        temp->push_back((stateMatrix->at(j + 1))->at(i));
-        temp->push_back((stateMatrix->at(j - 1))->at(i));
-        temp->push_back((stateMatrix->at(j))->at(i + 1));
-        temp->push_back((stateMatrix->at(j))->at(i - 1));
+        temp->push_back((stateMatrix->at((unsigned)j + 1))->at((unsigned)i));
+        temp->push_back((stateMatrix->at((unsigned)j - 1))->at((unsigned)i));
+        temp->push_back((stateMatrix->at((unsigned)j))->at((unsigned)i + 1));
+        temp->push_back((stateMatrix->at((unsigned)j))->at((unsigned)i - 1));
         return temp;
     }
     if (j - 1 >= 0) {
-        temp->push_back((stateMatrix->at(j-1))->at(i));
+        temp->push_back((stateMatrix->at((unsigned)j-1))->at((unsigned)i));
     }
     if (j + 1 < matrixSize) {
-        temp->push_back((stateMatrix->at(j + 1))->at(i));
+        temp->push_back((stateMatrix->at((unsigned)j + 1))->at((unsigned)i));
     }
     if (i - 1 >= 0) {
-        temp->push_back((stateMatrix->at(j))->at(i -1));
+        temp->push_back((stateMatrix->at((unsigned)j))->at((unsigned)i -1));
     }
     if (i + 1 < matrixSize) {
-        temp->push_back((stateMatrix->at(j))->at(i + 1));
+        temp->push_back((stateMatrix->at((unsigned)j))->at((unsigned)i + 1));
     }
     return temp;
 }
 
 
-std::vector<std::vector<State<std::pair<int, int>> *> *> *
+
+
+std::vector<std::vector<State<std::pair<int, int>*> *> *> *
 SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>*> *matrix) {
     int i = 0, j = 0;
-    auto tempMatrix = new std::vector<std::vector<State<std::pair<int, int>> *> *>;
-    //auto tempVec = new std::vector<State<std::pair<int, int>> *>;
-    auto tempAllStates = new std::vector<State<std::pair<int, int>> *>();
-    for (std::vector<double> *vec : *matrix) { // create matrix of state and array of states.
-        auto tempVec = new std::vector<State<std::pair<int, int>> *>;
+
+    auto tempMatrix = new std::vector<std::vector<State<std::pair<int, int>*>*>*>;
+
+    auto tempAllStates = new std::vector<State<std::pair<int, int>*>*>();
+
+    for (std::vector<double>* vec : *matrix) { // create matrix of state and array of states.
+
+        auto tempVec = new std::vector<State<std::pair<int, int>*>*>;
+
         for (double c : *vec) {
             auto pair = new std::pair<int, int>(i, j);
-            auto s = new State<std::pair<int, int>>(pair, c);
+            auto s = new State<std::pair<int, int>*>(pair, c);
 
             tempVec->push_back(s);
             j++;

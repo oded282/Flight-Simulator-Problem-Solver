@@ -13,7 +13,7 @@ class State {
     T* state;
     double nodeCost;
     double pathCost;
-    State<T> *father;
+    State<T*> *father;
     int numHash;
 
 public:
@@ -21,7 +21,7 @@ public:
 
     State<T>(T* state) {
         State::state = state;
-        State::father = NULL;
+        State::father = nullptr;
         State::nodeCost = 1;
         State::pathCost = std::numeric_limits<double>::infinity();
         State::numHash = rand() + 1;
@@ -29,16 +29,17 @@ public:
 
     State<T>(T* state, double c) {
         State::state = state;
-        State::father = NULL;
+        State::father = nullptr;
         State::nodeCost = c;
         State::pathCost = std::numeric_limits<double>::infinity();
+        State::numHash = rand() + 1;
     }
 
-    bool equals(State<T>* state) {
+    bool equals(State<T*>* state) {
         return *(state->getState()) == *(State::state);
     }
 
-    int getNumHash() const{
+    int getNumHash() {
         return numHash;
     }
 
@@ -46,20 +47,20 @@ public:
         State::state = state;
     }
 
-    T getState() {
+    T* getState() {
         return State::state ;
     }
 
-    State<T>* getFather() {
-        return father;
+    State<T*>* getFather() {
+        return State::father;
     }
 
     double getNodeCost() const {
-        return nodeCost;
+        return State::nodeCost;
     }
 
     double getPathCost() const {
-        return pathCost;
+        return State::pathCost;
     }
 
 
@@ -73,22 +74,28 @@ public:
     }
 
 
-    void setFather(State<T>* father) {
+    void setFather(State<T*>* father) {
         State::father = father;
     }
 
-    /*bool operator==(State<T> anotherLine)
+    bool operator==(State<T*>* state)
     {
-        return (state == anotherLine.getState());
-    }*/
+        return *(state->getState()) == *(State::state);
+    }
 
 
+
+/*
     bool operator< (const State<T>& b) {
-        return pathCost < b.getPathCost();
+        return pathCost < b->getPathCost();
     }
     bool operator> (const State<T>& b) {
-        return pathCost > b.getPathCost();
+        return pathCost > b->getPathCost();
     }
+
+ */
+
+
 
 };
 /*
