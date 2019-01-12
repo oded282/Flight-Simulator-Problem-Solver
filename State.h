@@ -13,7 +13,7 @@ class State {
     T* state;
     double nodeCost;
     double pathCost;
-    State<T*> *father;
+    State<T> *father;
     int numHash;
 
 public:
@@ -35,7 +35,7 @@ public:
         State::numHash = rand() + 1;
     }
 
-    bool equals(State<T*>* state) {
+    bool equals(State<T>* state) {
         return *(state->getState()) == *(State::state);
     }
 
@@ -51,7 +51,7 @@ public:
         return State::state ;
     }
 
-    State<T*>* getFather() {
+    State<T>* getFather() {
         return State::father;
     }
 
@@ -74,11 +74,11 @@ public:
     }
 
 
-    void setFather(State<T*>* father) {
+    void setFather(State<T>* father) {
         State::father = father;
     }
 
-    bool operator==(State<T*>* state)
+    bool operator==(State<T>* state)
     {
         return *(state->getState()) == *(State::state);
     }

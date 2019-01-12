@@ -2,10 +2,10 @@
 #include "SearchableMatrix.h"
 
 
-std::vector<State<std::pair<int, int>*>*>* SearchableMatrix::getPossibleStates(State<std::pair<int, int>*>* state) {
-    int i = (*state->getState())->first;
-    int j = (*state->getState())->second;
-    auto temp = new std::vector<State<std::pair<int, int>*>*>();
+std::vector<State<std::pair<int, int>>*>* SearchableMatrix::getPossibleStates(State<std::pair<int, int>>* state) {
+    int i = state->getState()->first;
+    int j = state->getState()->second;
+    auto temp = new std::vector<State<std::pair<int, int>>*>();
 
     if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
 
@@ -33,21 +33,22 @@ std::vector<State<std::pair<int, int>*>*>* SearchableMatrix::getPossibleStates(S
 
 
 
-std::vector<std::vector<State<std::pair<int, int>*> *> *> *
+std::vector<std::vector<State<std::pair<int, int>>*> *> *
 SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>*> *matrix) {
+
     int i = 0, j = 0;
 
-    auto tempMatrix = new std::vector<std::vector<State<std::pair<int, int>*>*>*>;
+    auto tempMatrix = new std::vector<std::vector<State<std::pair<int, int>>*>*>;
 
-    auto tempAllStates = new std::vector<State<std::pair<int, int>*>*>();
+    auto tempAllStates = new std::vector<State<std::pair<int, int>>*>();
 
     for (std::vector<double>* vec : *matrix) { // create matrix of state and array of states.
 
-        auto tempVec = new std::vector<State<std::pair<int, int>*>*>;
+        auto tempVec = new std::vector<State<std::pair<int, int>>*>;
 
         for (double c : *vec) {
             auto pair = new std::pair<int, int>(i, j);
-            auto s = new State<std::pair<int, int>*>(pair, c);
+            auto s = new State<std::pair<int, int>>(pair, c);
 
             tempVec->push_back(s);
             j++;
@@ -61,7 +62,7 @@ SearchableMatrix::setStatesMatrix(std::vector<std::vector<double>*> *matrix) {
     return tempMatrix;
 }
 
-std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getAllStates() {
+std::vector<State<std::pair<int, int>>*> *SearchableMatrix::getAllStates() {
     return allStates;
 }
 
@@ -92,7 +93,7 @@ int main() {
 
     auto s = new SearchableMatrix(s1 , s8 , matrix , 3);
 
-    s->getPossibleStates(std::pair<int,int> (1,1));
+   // s->getPossibleStates(std::pair<int,int> (1,1));
 
 
 }
