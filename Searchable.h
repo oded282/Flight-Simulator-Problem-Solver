@@ -26,6 +26,8 @@ public:
 
     virtual std::vector<State<T>*>* getPossibleStates(State<T>* state) = 0;
 
+    virtual void setDistance(State<std::pair<int, int>> *state, State<std::pair<int, int>> *goal) =0;
+
 };
 
 

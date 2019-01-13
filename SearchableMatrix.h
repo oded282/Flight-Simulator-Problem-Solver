@@ -34,6 +34,8 @@ public:
 
     std::vector<std::vector<State<std::pair<int, int>>*>*>* setStatesMatrix(std::vector<std::vector<double>*>* matrix);
 
+    virtual void setDistance(State<std::pair<int, int>> *state, State<std::pair<int, int>> *goal);
+
 };
 
 

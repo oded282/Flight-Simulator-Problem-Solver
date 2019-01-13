@@ -15,6 +15,7 @@ class State {
     double pathCost;
     State<T> *father;
     int numHash;
+    double distToGoal;
 
 public:
 
@@ -25,6 +26,7 @@ public:
         State::nodeCost = 1;
         State::pathCost = std::numeric_limits<double>::infinity();
         State::numHash = rand() + 1;
+        distToGoal = 0;
     }
 
     State<T>(T* state, double c) {
@@ -33,6 +35,14 @@ public:
         State::nodeCost = c;
         State::pathCost = std::numeric_limits<double>::infinity();
         State::numHash = rand() + 1;
+        distToGoal = 0;
+    }
+
+    double getDistance() const{
+        return distToGoal;
+    }
+    void setDistance(double distance){
+        this->distToGoal = distance;
     }
 
     bool equals(State<T>* state) {

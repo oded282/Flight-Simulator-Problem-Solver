@@ -12,16 +12,15 @@ template <class T>
 class myComparator
 {
 public:
-    int operator() (const State<T>* p1, const State<T>* p2)
+    int operator() (const State<T>* p1,const State<T>* p2)
     {
-        return p1->getPathCost() > p2->getPathCost();
+        return p1->getPathCost() + p1->getDistance() > p2->getPathCost() + p2->getDistance();
     }
 };
 
 template <class T>
 class AbstractSearcher : public Searcher<State<T>>{
 protected:
-    //std::map<State<T>*,color>* visited;
     //std::unordered_map<State<T>*, color> visited;
     //std::priority_queue<State<T>*,std::vector<State<T>*>,myComparator<T>> open ;
 

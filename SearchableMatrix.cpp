@@ -1,5 +1,7 @@
 
 #include "SearchableMatrix.h"
+#include <cmath>
+
 
 
 std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getPossibleStates(State<std::pair<int, int>> *state) {
@@ -8,10 +10,9 @@ std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getPossibleStates(S
     auto temp = new std::vector<State<std::pair<int, int>> *>();
 
     if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
-
         temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j + 1));
         temp->push_back((stateMatrix->at((unsigned) i + 1))->at((unsigned) j));
-        temp->push_back((stateMatrix->at((unsigned) i)->at((unsigned) j - 1)));
+        temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j - 1));
         temp->push_back((stateMatrix->at((unsigned) i - 1))->at((unsigned) j));
         return temp;
     }
@@ -27,13 +28,17 @@ std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getPossibleStates(S
     if (i - 1 >= 0) {
         temp->push_back((stateMatrix->at((unsigned) i - 1))->at((unsigned) j));
     }
-
     return temp;
 }
 
+void SearchableMatrix::setDistance(State<std::pair<int, int>> *state, State<std::pair<int, int>> *goal) {
+    state->setDistance(std::abs(state->getState()->first - goal->getState()->first) +
+                       std::abs(state->getState()->second - goal->getState()->second));
+}
+
 void SearchableMatrix::initAndGoal(std::pair<int, int> init, std::pair<int, int> goal) {
-    this->goal = stateMatrix->at((unsigned)goal.first)->at((unsigned)goal.second);
-    this->initial = stateMatrix->at((unsigned)init.first)->at((unsigned)init.second);
+    this->goal = stateMatrix->at(goal.first)->at(goal.second);
+    this->initial = stateMatrix->at(init.first)->at(init.second);
 
 }
 

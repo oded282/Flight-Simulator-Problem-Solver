@@ -15,13 +15,13 @@ public:
 
     void initialize(std::vector<State<T>*>* vector) {
         for (State<T>* state: *vector) {
-            visited[state] = WHITE;
+            this->visited[state] = WHITE;
         }
     }
 
     static std::vector<State<T> *> *backTrace(State<T> *state) {
-        std::vector<State<T> *> *trace;
-        while (state != NULL) {
+        std::vector<State<T> *> *trace = new std::vector<State<T> *>;
+        while (state != nullptr) {
             trace->push_back(state);
             state = state->getFather();
         }
@@ -40,22 +40,22 @@ public:
             State<T>* currentState = queue.front();
             queue.pop();
 
-            if (currentState == s->getGoal()) {
-                return backTrace(currentState);
-            }
-
-            visited[currentState] = BLACK;
+            this->visited[currentState] = BLACK;
 
             for (State<T>* child : *s->getPossibleStates(currentState)) {
 
                 if (child->getNodeCost() == -1) {
+                    this->visited.at(child) == BLACK;
                     continue;
                 }
-                if (visited.at(child) == WHITE) {
+                if (this->visited.at(child) == WHITE) {
                     child->setFather(currentState);
                     child->setPathCost(currentState->getPathCost() + child->getNodeCost());
-                    visited.at(child) = GRAY;
-
+                    this->visited.at(child) = GRAY;
+                    this->numOfNodes++;
+                    if (child == s->getGoal()) {
+                        return backTrace(child);
+                    }
                     queue.push(child);
                 }
             }
