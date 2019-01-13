@@ -29,7 +29,7 @@ public:
     }
 
 
-    virtual std::vector<State<T>*> *search(Searchable<T> *s) {
+    virtual std::vector<State<T>*> *search(Searchable<T>* s) {
         initialize(s->getAllStates());
         State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());

@@ -36,7 +36,11 @@ public:
 template <class T>
 class BestFirstSearch : public AbstractSearcher<T> {
 
-    void initialization (std::vector<State<T>*>* vector){
+    std::unordered_map<State<T>*, color> visited;
+    std::priority_queue<State<T>*,std::vector<State<T>*>,myComparator<T>> open ;
+
+
+    void initialize (std::vector<State<T>*>* vector){
             for (State<T>* s : *vector ) {
                 this->visited[s] = WHITE;
             }
@@ -50,8 +54,8 @@ public:
 
 
     static std::vector<State<T>*>* backTrace(State<T>* state) {
-        std::vector<State<T>*>* trace;
-        while (state != NULL) {
+        auto trace = new std::vector<State<T>*>;
+        while (state != nullptr) {
             trace->push_back(state);
             state = state->getFather();
         }
@@ -59,44 +63,41 @@ public:
     }
 
     std::vector<State<T>*>* search(Searchable<T>* s) {
-        initialization(s->getAllStates());
-        //TODO initialis func.
+        initialize(s->getAllStates());
         // initial open
         State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());
         this->open.push(first);
-        std::unordered_set<State<T>*> closed;
 
         while (!this->open.empty()) {
-            //TODO check if this is the right place for counting.
-            this->numOfNodes++;
             // get the most lower path cost.
             State<T>* n = this->open.top();
             this->open.pop();
             this->visited.at(n) = BLACK;
-            // insert to closed.
-            closed.insert(n);
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
                 std::vector<State<T>*>* v =  backTrace(s->getGoal());
                 return v;
             }
             // get all the neighbors.
-            std::vector<State<T>*>* succerssors = (s->getPossibleStates(n->getState()));
+            std::vector<State<T>*>* succerssors = (s->getPossibleStates(n));
 
             for (State<T>* it : *succerssors) {
+
                 if (it->getNodeCost() == -1){
                     continue;
                 }
-                double currentPathCost = it->getPathCost() + it->getNodeCost();
+                double currentPathCost = n->getPathCost() + it->getNodeCost();
                 // if s is not in open and not in closed.
                 if (this->visited.at(it) == WHITE) {
                     this->visited.at(it) = GRAY;
                     it->setFather(n);
                     it->setPathCost(currentPathCost);
                     this->open.push(it);
+                    this->numOfNodes++;
 
                 } else if (currentPathCost < it->getPathCost() && this->visited.at(it) != BLACK) {
+                    this->numOfNodes++;
                     it->setFather(it);
                     it->setPathCost(currentPathCost);
                     if (this->visited.at(it) == GRAY) {

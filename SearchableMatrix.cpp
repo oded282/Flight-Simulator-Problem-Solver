@@ -9,30 +9,31 @@ std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getPossibleStates(S
 
     if (i > 0 && i < matrixSize - 1 && j > 0 && j < matrixSize - 1) {
 
-        temp->push_back((stateMatrix->at((unsigned) j + 1))->at((unsigned) i));
-        temp->push_back((stateMatrix->at((unsigned) j - 1))->at((unsigned) i));
-        temp->push_back((stateMatrix->at((unsigned) j))->at((unsigned) i + 1));
-        temp->push_back((stateMatrix->at((unsigned) j))->at((unsigned) i - 1));
+        temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j + 1));
+        temp->push_back((stateMatrix->at((unsigned) i + 1))->at((unsigned) j));
+        temp->push_back((stateMatrix->at((unsigned) i)->at((unsigned) j - 1)));
+        temp->push_back((stateMatrix->at((unsigned) i - 1))->at((unsigned) j));
         return temp;
-    }
-    if (j - 1 >= 0) {
-        temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j - 1));
     }
     if (j + 1 < matrixSize) {
         temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j + 1));
     }
-    if (i - 1 >= 0) {
-        temp->push_back((stateMatrix->at((unsigned) i - 1))->at((unsigned) j));
-    }
     if (i + 1 < matrixSize) {
         temp->push_back((stateMatrix->at((unsigned) i + 1))->at((unsigned) j));
     }
+    if (j - 1 >= 0) {
+        temp->push_back((stateMatrix->at((unsigned) i))->at((unsigned) j - 1));
+    }
+    if (i - 1 >= 0) {
+        temp->push_back((stateMatrix->at((unsigned) i - 1))->at((unsigned) j));
+    }
+
     return temp;
 }
 
 void SearchableMatrix::initAndGoal(std::pair<int, int> init, std::pair<int, int> goal) {
-    this->goal = stateMatrix->at(goal.first)->at(goal.second);
-    this->initial = stateMatrix->at(init.first)->at(init.second);
+    this->goal = stateMatrix->at((unsigned)goal.first)->at((unsigned)goal.second);
+    this->initial = stateMatrix->at((unsigned)init.first)->at((unsigned)init.second);
 
 }
 
