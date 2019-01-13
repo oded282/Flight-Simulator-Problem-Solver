@@ -7,9 +7,9 @@
 
 
 template<class T>
-class BreadthFirstSearch : public AbstractSearcher<State<T>> {
-    std::queue<State<T>*> queue;
-    std::map<State<T>*,color> visited;
+class BreadthFirstSearch : public AbstractSearcher<T> {
+    //std::queue<State<T>*> queue;
+    //std::map<State<T>*,color> visited;
 
 public:
 
@@ -29,16 +29,19 @@ public:
     }
 
 
+    std::vector<State<T> *> * search(Searchable<State<T>>* vec) override {
+
+    }
     virtual std::vector<State<T>*> *search(Searchable<T>* s) {
         initialize(s->getAllStates());
         State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());
-        queue.push(first);
+        this->queue.push(first);
 
-        while (!queue.empty()) {
+        while (!this->queue.empty()) {
 
-            State<T>* currentState = queue.front();
-            queue.pop();
+            State<T>* currentState = this->queue.front();
+            this->queue.pop();
 
             this->visited[currentState] = BLACK;
 
@@ -56,7 +59,7 @@ public:
                     if (child == s->getGoal()) {
                         return backTrace(child);
                     }
-                    queue.push(child);
+                    this->queue.push(child);
                 }
             }
         }

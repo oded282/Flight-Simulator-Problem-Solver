@@ -4,6 +4,7 @@
 #include <math.h>
 #include <unordered_set>
 #include "AbstractSearcher.h"
+#include <iostream>
 
 template<class T>
 class AStar : public AbstractSearcher<T> {
@@ -29,7 +30,7 @@ class AStar : public AbstractSearcher<T> {
 
 public:
 
-    std::vector<State<T>*>* search (Searchable<T>* s){
+    std::vector<State<T>*>* search (Searchable<State<T>>* s){
 
         initialization(s->getAllStates());
         State<T>* first = s->getInitial();
@@ -76,10 +77,6 @@ public:
         }
         return nullptr;
     }
-
-
-
-
 };
 
 

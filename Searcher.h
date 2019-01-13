@@ -11,7 +11,7 @@ protected:
 
 public:
     Searcher(){}
-   // virtual std::vector<State<T>*>* search (Searchable<State<T>>* s) = 0;
+   virtual std::vector<State<T>*>* search (Searchable<State<T>>* s) = 0;
 
 };
 
