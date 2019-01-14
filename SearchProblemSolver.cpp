@@ -40,16 +40,16 @@ string SearchProblemSolver:: solve(string problem) {
     std::pair<int, int> initial;
     std::pair<int, int> goal;
 
-    initAndGoal(initial, goal, it);
+ //   initAndGoal(initial, goal, it);
 
     std::vector<std::vector<double> *>* matrix = initTheMatrix(problem);
 
     int col = (int)matrix->size();
-    int row = *matrix[0].size();
+ //   int row = *matrix[0].size();
 
-    auto searcheableMatrix = new SearchableMatrix(initial,goal,matrix,matrix,row,col);
+ //   auto searcheableMatrix = new SearchableMatrix(initial,goal,matrix,matrix,row,col);
 
-    return createPath(searcher.search(searcheableMatrix));
+ //   return createPath(searcher.search(searcheableMatrix));
 
 
 

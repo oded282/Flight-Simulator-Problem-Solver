@@ -72,7 +72,7 @@ SearchableMatrix::setStatesMatrix(std::vector<std::vector<double> *> *matrix) {
     return tempMatrix;
 }
 
-std::vector<State<std::pair<int, int>> *> *SearchableMatrix::getAllStates() {
+std::vector<State<std::pair<int, int>>*> *SearchableMatrix::getAllStates() {
     return allStates;
 }
 

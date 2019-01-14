@@ -10,6 +10,11 @@
 #include "BestFirstSearch.h"
 #include "BreadthFirstSearch.h"
 #include "AStar.h"
+#include "DepthFirstSearch .h"
+bool shouldRun;
+int countCurrentTreaths = 0;
+
+
 
 int main(){
 
@@ -25,8 +30,6 @@ int main(){
     std::vector<double >* v10 = new std::vector<double>{ 7, 7, 5,10, 8,10, 1, 6, 9, 9, 1};
     std::vector<double >* v11 = new std::vector<double>{5,10, 1,10, 7, 7, 3,10, 8, 0, 6};
 
-
-
     std::vector<std::vector<double >*>* matrix = new std::vector<std::vector<double>*> {v1,v2,v3 ,v4,v5,v6,v7,v8,v9,v10,v11} ;
 
 
@@ -37,10 +40,11 @@ int main(){
 
     auto s = new SearchableMatrix(*p1 , *p8 , matrix , 11);
 
-    auto b = new BreadthFirstSearch<std::pair<int,int>>();
+    auto b = new DepthFirstSearch<std::pair<int,int>>();
 
     std::vector<State<pair<int,int>>*>* vec = b->search(s);
 
 
     return 1;
 }
+

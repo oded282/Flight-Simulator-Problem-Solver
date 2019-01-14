@@ -6,7 +6,6 @@
 
 
 
-
 class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
     std::vector<std::vector<State<std::pair<int,int>>*>*>* stateMatrix;
@@ -14,7 +13,8 @@ class SearchableMatrix : public Searchable<std::pair<int,int>> {
 
 public:
 
-    SearchableMatrix(std::pair<int,int> initial ,std::pair<int,int> goal, std::vector<std::vector<double>*>* matrix, int matrixSize){
+    SearchableMatrix(std::pair<int,int> initial ,std::pair<int,int> goal,
+            std::vector<std::vector<double>*>* matrix, int matrixSize){
         this->matrixSize = matrixSize;
 
         stateMatrix = setStatesMatrix(matrix);

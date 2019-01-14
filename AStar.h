@@ -9,30 +9,11 @@
 template<class T>
 class AStar : public AbstractSearcher<T> {
 
-    std::unordered_map<State<T>*, color> visited;
-    std::priority_queue<State<T>*,std::vector<State<T>*>,myComparator<T>> open ;
-
-    void initialization (std::vector<State<T>*>* vector){
-        for (State<T>* s : *vector ) {
-            this->visited[s] = WHITE;
-        }
-    }
-
-    static std::vector<State<T> *> *backTrace(State<T> *state) {
-        std::vector<State<T> *> *trace = new std::vector<State<T> *>;
-        while (state != nullptr) {
-            trace->push_back(state);
-            state = state->getFather();
-        }
-        return trace;
-    }
-
-
 public:
 
-    std::vector<State<T>*>* search (Searchable<State<T>>* s){
+    std::vector<State<T>*>* search (Searchable<T>* s){
 
-        initialization(s->getAllStates());
+        this->initialize(s->getAllStates());
         State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());
         s->setDistance(first,s->getGoal());
@@ -48,7 +29,7 @@ public:
 
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
-                return backTrace(s->getGoal());
+                return this->backTrace(s->getGoal());
             }
             // get all the neighbors.
             std::vector<State<T>*>* succerssors = s->getPossibleStates(n);

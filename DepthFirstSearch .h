@@ -1,43 +1,25 @@
 #ifndef MILESTONE2_DFS_H
 #define MILESTONE2_DFS_H
 
-
 #include "AbstractSearcher.h"
 #include <unordered_map>
 #include <stack>
+#include <iostream>
 
 template<class T>
 class DepthFirstSearch : public AbstractSearcher<T> {
-protected:
-    std::unordered_map<State<T>*, color> visited;
-    //std::unordered_map<State<T>*, unsigned int>mapTimeD;
-    //std::unordered_map<State<T>*, unsigned int>mapTimeF;
-
-    static std::vector<State<T> *>* backTrace(State<T> *state) {
-        auto trace =  new std::vector<State<T> *>;
-        while (state != nullptr) {
-            trace->push_back(state);
-            state = state->getFather();
-        }
-        return trace;
-    }
-
-    void initialize (std::vector<State<T>*>* vector){
-        for (State<T>* s : *vector ){
-            this->visited[s] = WHITE;
-      //      this->mapTimeD[s] = 0;
-        //    this->mapTimeF[s] = 0;
-        }
-    }
 
 public:
+
+
+
     virtual std::vector<State<T>*>* search (Searchable<T>* s){
 
         if (s->getInitial() == s->getGoal()){
-            return backTrace(s->getInitial());
+            return this->backTrace(s->getInitial());
         }
 
-        initialize(s->getAllStates());
+        this->initialize(s->getAllStates());
 
         std::stack<State<T>*> stack;
         State<T>* first = s->getInitial();
@@ -56,7 +38,8 @@ public:
 
                 if (it == s->getGoal()){
                     it->setFather(n);
-                    return backTrace(it);
+                    it->setPathCost(n->getPathCost() + it->getNodeCost());
+                    return this->backTrace(it);
                 }
 
                 if (it->getNodeCost() == -1){
@@ -74,8 +57,6 @@ public:
         }
         return nullptr;
     }
-
-
 };
 
 

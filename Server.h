@@ -3,11 +3,12 @@
 
 
 #include "ClientHandler.h"
+extern bool shouldRun;
+extern int countCurrentTreaths;
 
 class Server {
 
 protected:
-bool shouldRun;
 
 public:
 

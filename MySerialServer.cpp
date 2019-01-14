@@ -36,6 +36,7 @@ void *communicationServer(void *args) {
         }
        t-> clientHandler->handleClient(newsockfd);
     }
+    return nullptr;
 }
 
 
@@ -75,34 +76,6 @@ void MySerialServer::open(int port , ClientHandler* clientHandler) {
     pthread_t pthreadS;
     pthread_create(&pthreadS, nullptr, communicationServer, (void *) t);
 
- /*
-    while (true) {
-        // Now start listening for the clients, here process will
-          // * go in sleep mode and will wait for the incoming connection
-        //
-        listen(sockfd, 1);
-        clilen = sizeof(cli_addr);
-        int i =0;
-        //time out for whiting to client.
-        while (i < 10 && newsockfd == 0){
-            newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
-            sleep(1);
-            i++;
-        }
-        if (i == 10){
-            break;
-        }
-
-        // Accept actual connection from the client
-
-        if (newsockfd < 0) {
-            perror("ERROR on accept");
-            exit(1);
-        }
-
-        clientHandler->handleClient(newsockfd);
-    }
-    */
 }
 
 

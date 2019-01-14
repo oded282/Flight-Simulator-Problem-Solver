@@ -6,7 +6,6 @@
 #include <unordered_map>
 
 template <class T>
-
 class Searchable {
 
 protected:

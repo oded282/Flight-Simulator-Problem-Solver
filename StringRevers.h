@@ -6,7 +6,9 @@
 
 class StringRevers : public Solver{
 
+
 public:
+
     virtual string solve(string string1);
 
 };

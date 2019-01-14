@@ -8,6 +8,7 @@
 #include "AbstractSearcher.h"
 #include "State.h"
 
+/*
 template<
         class T,
         class Container = std::vector<T>,
@@ -31,20 +32,11 @@ public:
         return last;
     }
 };
-
+*/
 
 template <class T>
 class BestFirstSearch : public AbstractSearcher<T> {
 
-    std::unordered_map<State<T>*, color> visited;
-    std::priority_queue<State<T>*,std::vector<State<T>*>,myComparator<T>> open ;
-
-
-    void initialize (std::vector<State<T>*>* vector){
-            for (State<T>* s : *vector ) {
-                this->visited[s] = WHITE;
-            }
-    }
 
 public:
 
@@ -53,17 +45,8 @@ public:
     };
 
 
-    static std::vector<State<T>*>* backTrace(State<T>* state) {
-        auto trace = new std::vector<State<T>*>;
-        while (state != nullptr) {
-            trace->push_back(state);
-            state = state->getFather();
-        }
-        return trace;
-    }
-
     std::vector<State<T>*>* search(Searchable<T>* s) {
-        initialize(s->getAllStates());
+        this->initialize(s->getAllStates());
         // initial open
         State<T>* first = s->getInitial();
         first->setPathCost(first->getNodeCost());
@@ -76,7 +59,7 @@ public:
             this->visited.at(n) = BLACK;
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
-                std::vector<State<T>*>* v =  backTrace(s->getGoal());
+                std::vector<State<T>*>* v =  this->backTrace(n);
                 return v;
             }
             // get all the neighbors.
