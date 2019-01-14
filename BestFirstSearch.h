@@ -59,8 +59,7 @@ public:
             this->visited.at(n) = BLACK;
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
-                std::vector<State<T>*>* v =  this->backTrace(n);
-                return v;
+                return this->backTrace(n);
             }
             // get all the neighbors.
             std::vector<State<T>*>* succerssors = (s->getPossibleStates(n));

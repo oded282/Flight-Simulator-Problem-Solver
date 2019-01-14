@@ -124,10 +124,11 @@ string SearchProblemSolver::solve(string problem) {
 
 
 }
+/*
 
 int main() {
     string problem = "4,7,2,9,10\r\n5,7,6,12,14\r\n11,12,19,45,23\r\n77,88,99,66,44\r\n0,0\r\n3,4\r\nend";
     auto b = new BreadthFirstSearch<std::pair<int, int>>();
     auto s = new SearchProblemSolver(b);
     s->solve(problem);
-}
+}*/

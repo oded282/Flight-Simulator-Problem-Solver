@@ -14,8 +14,6 @@
 #include<pthread.h>
 #include <thread>
 
-
-
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 void* socketThread(void *arg){
@@ -25,9 +23,7 @@ void* socketThread(void *arg){
     ClientHandler* clientHandler = arg_struct1.clientHandler;
 
     clientHandler->handleClient(newSocket);
-//    pthread_mutex_unlock(&lock);
 
-//    send(newSocket,buffer,13,0);
     countCurrentTreaths--;
     printf("Exit socketThread \n");
     close(newSocket);
@@ -91,7 +87,7 @@ void MasterOfThreads (int port, ClientHandler *c){
         if(pthread_create(&tid[countCurrentTreaths], NULL, socketThread, &arg_struct1) != 0 ) {
             printf("Failed to create thread\n");
         }
-        countCurrentTreaths++;
+//        countCurrentTreaths++;
         if( countCurrentTreaths >= 50)
         {
             countCurrentTreaths = 0;
@@ -106,7 +102,10 @@ void MasterOfThreads (int port, ClientHandler *c){
 
 void MyParallelServer::open (int port, ClientHandler * c){
     std::thread th1(MasterOfThreads, port, c);
+    cout<< "start MasterOfThreads"<<endl;
     th1.join();
+    cout<< "end MasterOfThreads"<<endl;
+
 }
 /*
 

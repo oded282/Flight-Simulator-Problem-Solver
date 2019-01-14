@@ -4,6 +4,7 @@
 
 #include <queue>
 #include <map>
+#include <iostream>
 #include "Searcher.h"
 
 enum color {WHITE, GRAY, BLACK};
@@ -24,8 +25,6 @@ protected:
     std::priority_queue<State<T>*, std::vector<State<T>*>, myComparator<T>> open;
     std::queue<State<T> *> queue;
 
-
-
     //privet func.
     void initialize (std::vector<State<T>*>* vector){
         for (State<T>* s : *vector ) {
@@ -33,12 +32,14 @@ protected:
         }
     }
 
-    static std::vector<State<T>*>* backTrace(State<T>* state) {
+     std::vector<State<T>*>* backTrace(State<T>* state) {
         auto trace = new std::vector<State<T>*>;
         while (state != nullptr) {
             trace->push_back(state);
             state = state->getFather();
         }
+        std::cout<< "path cost: " << (*trace)[0]->getPathCost() <<std::endl;
+        std::cout<< "num of nodes: " <<  this->numOfNodes <<std::endl;
         return trace;
     }
 

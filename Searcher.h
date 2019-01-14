@@ -11,6 +11,7 @@ protected:
 public:
     Searcher(){}
    virtual std::vector<State<T>*>* search (Searchable<T>* s) = 0;
+    virtual double getNumOfNodesEvaluated() = 0;
 
 };
 

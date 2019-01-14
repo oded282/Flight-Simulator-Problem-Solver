@@ -6,6 +6,7 @@
 #include "CacheManager.h"
 #include <unordered_map>
 
+extern pthread_mutex_t mutex;
 
 
 class FileCacheManager : public CacheManager<string,string> {

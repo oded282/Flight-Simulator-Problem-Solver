@@ -28,7 +28,7 @@ public:
 
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
-                return this->backTrace(s->getGoal());
+                return this->backTrace(n);
             }
             // get all the neighbors.
             std::vector<State<T>*>* succerssors = s->getPossibleStates(n);
