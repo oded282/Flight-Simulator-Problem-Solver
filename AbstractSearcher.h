@@ -47,6 +47,8 @@ protected:
 public:
     AbstractSearcher() {}
 
+    ~AbstractSearcher(){}
+
     virtual std::vector<State<T> *> *search(Searchable<T> *s) = 0;
 
     double getNumOfNodesEvaluated() {

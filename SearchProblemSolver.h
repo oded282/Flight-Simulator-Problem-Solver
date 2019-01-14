@@ -22,6 +22,10 @@ public:
         searcher = s;
     }
     virtual string solve(string problem);
+
+    ~SearchProblemSolver(){
+        delete searcher;
+    }
 };
 
 

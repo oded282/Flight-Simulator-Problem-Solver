@@ -27,6 +27,8 @@ public:
 
     virtual void setDistance(State<std::pair<int, int>> *state, State<std::pair<int, int>> *goal) =0;
 
+    ~Searchable() = 0;
+
 };
 
 

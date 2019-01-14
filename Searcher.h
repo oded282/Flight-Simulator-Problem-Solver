@@ -3,15 +3,20 @@
 
 
 #include "Searchable.h"
-template <class T>
+
+template<class T>
 class Searcher {
 protected:
     double numOfNodes;
 
 public:
-    Searcher(){}
-   virtual std::vector<State<T>*>* search (Searchable<T>* s) = 0;
+    Searcher() {}
+
+    virtual std::vector<State<T> *> *search(Searchable<T> *s) = 0;
+
     virtual double getNumOfNodesEvaluated() = 0;
+
+    ~Searcher() = 0;
 
 };
 

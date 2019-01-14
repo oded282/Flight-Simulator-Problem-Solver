@@ -37,6 +37,18 @@ public:
 
     virtual void setDistance(State<std::pair<int, int>> *state, State<std::pair<int, int>> *goal);
 
+    //deletes the matrix states and the two vectors.
+
+    ~SearchableMatrix(){
+        for(auto vec: *stateMatrix){
+            for(auto state: *vec){
+                delete(state);
+            }
+            delete(vec);
+        }
+        delete(stateMatrix);
+    }
+
 };
 
 

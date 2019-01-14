@@ -4,7 +4,10 @@
 #include <algorithm>
 #include <iostream>
 
-
+/*
+ * erase all the commas from the string and put each value inside
+ * vector of all values.
+ */
 vector<string> splitByComma(string str) {
     vector<string> result;
     string val;
@@ -23,6 +26,10 @@ vector<string> splitByComma(string str) {
     return result;
 }
 
+
+/*
+ * this function initial the goal and init values of the problem.
+ */
 void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vector<std::string>::iterator &it) {
     goal.second = stoi(*it);
     it--;
@@ -34,19 +41,23 @@ void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::v
     it -= 2;
 }
 
+
+/*
+ * This func run over the problem and push each value to vector of douvle values.
+ */
 std::vector<std::vector<double> *> *
 initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> &goal) {
     auto matrix = new std::vector<std::vector<double> *>;
     auto temp = new std::vector<double>;
     std::vector<string> problemVec;
 
-    problemVec = splitByComma(problem);
+    problemVec = splitByComma(problem); // erase commas.
     auto itBegin = problemVec.begin();
     auto it = problemVec.end();
     it -= 2;
-    initAndGoal(initial, goal, it);
+    initAndGoal(initial, goal, it); // initial the start and end of the problem.
     it += 2;
-    for (itBegin; itBegin != it + 1; itBegin++) {
+    for (itBegin; itBegin != it + 1; itBegin++) { // run over values and push them to vector.
         if (*itBegin == "\r\n") {
             itBegin++;
             matrix->push_back(temp);
@@ -56,7 +67,10 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
     }
     return matrix;
 }
-
+ /*
+  * This func create the needed string of the direction from
+  * one state to another.
+  */
 string createDirection(int i, int j){
     if(i == 0 && j ==1){
         return "Right";
@@ -73,18 +87,24 @@ string createDirection(int i, int j){
     return "";
 }
 
+/*
+ *This func check the relation between two states
+ * by their position(i,j). if the next state is left to the current initial
+ * j to -1, if it's to the right initial j to 1
+ * if next above current initial i to -1 if it's underneath initial  j to -1.
+ */
 template<class T>
 string checkDirections(State<T> *s1, State<T> *s2) {
     int i;
     int j;
-    if (s1->getState()->first == s2->getState()->first) {
+    if (s1->getState()->first == s2->getState()->first) { // case i's equals.
         i = 0;
         if (s2->getState()->second > s1->getState()->second) {
             j = 1;
         } else {
             j = -1;
         }
-    } else if (s1->getState()->first > s2->getState()->first) {
+    } else if (s1->getState()->first > s2->getState()->first) { // case  i  < j
         i = -1;
         j = 0;
     } else {
@@ -94,6 +114,9 @@ string checkDirections(State<T> *s1, State<T> *s2) {
     return createDirection(i,j);
 }
 
+/*
+ * This func check for position relation between two states in the path.
+ */
 template<class T>
 string createPath(std::vector<State<T>*> *vector) {
     std::string path;
@@ -106,7 +129,9 @@ string createPath(std::vector<State<T>*> *vector) {
     return path;
 }
 
-
+/*
+ *
+ */
 string SearchProblemSolver::solve(string problem) {
 
     std::pair<int, int> initial;
