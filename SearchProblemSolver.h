@@ -16,7 +16,7 @@ class SearchProblemSolver : public Solver {
 
 public:
     SearchProblemSolver(){
-        searcher = new AStar<std::pair<int,int>>();
+        //searcher = new AStar<std::pair<int,int>>();
     }
     SearchProblemSolver(Searcher<std::pair<int,int>>* s){
         searcher = s;
