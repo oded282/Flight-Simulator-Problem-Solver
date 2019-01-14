@@ -21,7 +21,6 @@ public:
 
         while (!this->open.empty()) {
 
-            this->numOfNodes++;
             // get the most lower path cost.
             State<T>* n = this->open.top();
             this->open.pop();
@@ -41,16 +40,20 @@ public:
                 double currentPathCost = n->getPathCost() + it->getNodeCost();
                 // if s is not in open and not in closed.
                 if (this->visited.at(it) == WHITE) {
+                    this->numOfNodes++;
                     this->visited.at(it) = GRAY;
                     s->setDistance(it,s->getGoal());
                     it->setFather(n);
                     it->setPathCost(currentPathCost);
                     this->open.push(it);
 
-                } else if (currentPathCost < it->getPathCost() && this->visited.at(it) != BLACK) {
-                    it->setFather(it);
+                } else if (currentPathCost < it->getPathCost()) {
+                    this->numOfNodes++;
+                    it->setFather(n);
                     it->setPathCost(currentPathCost);
-                    if (this->visited.at(it) == GRAY) {
+                    s->setDistance(it,s->getGoal());
+                    if (this->visited.at(it) == BLACK) {
+                        this->visited.at(it) = GRAY;
                         this->open.push(it);
                     }
                 }

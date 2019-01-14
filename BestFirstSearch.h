@@ -79,11 +79,12 @@ public:
                     this->open.push(it);
                     this->numOfNodes++;
 
-                } else if (currentPathCost < it->getPathCost() && this->visited.at(it) != BLACK) {
+                } else if (currentPathCost < it->getPathCost()) {
                     this->numOfNodes++;
-                    it->setFather(it);
+                    it->setFather(n);
                     it->setPathCost(currentPathCost);
-                    if (this->visited.at(it) == GRAY) {
+                    if (this->visited.at(it) == BLACK) {
+                        this->visited.at(it) = GRAY;
                         this->open.push(it);
                     }
                 }

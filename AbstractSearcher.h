@@ -24,24 +24,15 @@ protected:
     std::priority_queue<State<T>*, std::vector<State<T>*>, myComparator<T>> open;
     std::queue<State<T> *> queue;
 
-public:
-    AbstractSearcher() {}
 
-    // func
+
+    //privet func.
     void initialize (std::vector<State<T>*>* vector){
         for (State<T>* s : *vector ) {
             this->visited[s] = WHITE;
         }
     }
 
-
-    virtual std::vector<State<T> *> *search(Searchable<T> *s) = 0;
-
-    double getNumOfNodesEvaluated() {
-        return this->numOfNodes;
-    };
-
-    // get the gol after the running of the search and return the path.
     static std::vector<State<T>*>* backTrace(State<T>* state) {
         auto trace = new std::vector<State<T>*>;
         while (state != nullptr) {
@@ -50,6 +41,16 @@ public:
         }
         return trace;
     }
+
+
+public:
+    AbstractSearcher() {}
+
+    virtual std::vector<State<T> *> *search(Searchable<T> *s) = 0;
+
+    double getNumOfNodesEvaluated() {
+        return this->numOfNodes;
+    };
 
 };
 
