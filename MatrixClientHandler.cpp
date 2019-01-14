@@ -6,15 +6,17 @@
 
 
 void MatrixClientHandler::handleClient(int sockfd) {
-
+    string problem;
     char buffer[SIZE_OF_READ_DATA] = {};
     ssize_t n;
     while (true){
 
         bzero(buffer , SIZE_OF_READ_DATA);
 
-        while(!strncmp(buffer,"end",3)) {
+        while(strstr(buffer,"end") != nullptr) {
             n = read(sockfd, buffer, SIZE_OF_READ_DATA);
+            problem += buffer;
+            memset(buffer, 0, sizeof(buffer));
         }
 
         if (strcmp(buffer , "end\r\n") == 0){
@@ -25,10 +27,10 @@ void MatrixClientHandler::handleClient(int sockfd) {
             cout << "not read fro, the client in from MyTestClientHandler"<<endl;
             break;
         }
-        string result = cacheManager->getSolution(buffer);
+        string result = cacheManager->getSolution(problem);
         if (result.empty()){
-            result = solver->solve(buffer);
-            cacheManager->addSolution(buffer , result);
+            result = solver->solve(problem);
+            cacheManager->addSolution(problem , result);
         }
 
         n = write(sockfd , result.data(), result.size());
