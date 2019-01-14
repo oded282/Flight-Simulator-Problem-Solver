@@ -5,7 +5,6 @@
 
 
 void MyTestClientHandler::handleClient(int sockfd) {
-
     char buffer[SIZE_OF_READ_DATA] = {};
     ssize_t n;
     while (true){

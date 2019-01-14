@@ -2,6 +2,7 @@
 #include <iostream>
 #include "FileCacheManager.h"
 
+extern pthread_mutex_t mutex;
 
 void FileCacheManager::saveSolution() {
     // lock thread.
@@ -22,15 +23,18 @@ void FileCacheManager::saveSolution() {
 string FileCacheManager::getSolution(string problem) {
     // lock thread.
     pthread_mutex_lock(&mutex);
+    string result;
     if (newMap.find(problem) != newMap.end()) {
-        return newMap[problem];
+        result = newMap[problem];
     } else if (oldMap.find(problem) != oldMap.end()) {
-        return oldMap[problem];
+        result = oldMap[problem];
     } else {
-        return "";
+        result = "";
     }
     // unlock thread.
     pthread_mutex_unlock(&mutex);
+    return result;
+
 }
 
 void FileCacheManager::addSolution(string problem, string solution) {

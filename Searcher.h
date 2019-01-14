@@ -20,5 +20,4 @@ public:
 
 };
 
-
 #endif //MILESTONE2_SEARCHER_H

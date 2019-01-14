@@ -63,7 +63,6 @@ void MasterOfThreads (int port, ClientHandler *c){
         timeout.tv_usec = 0;
 
         setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
-
         //Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
         arg_struct arg_struct1;
@@ -72,13 +71,19 @@ void MasterOfThreads (int port, ClientHandler *c){
         if (newSocket < 0)	{
             if (errno == EWOULDBLOCK)	{
                 cout << "timeout!" << endl;
+                while(countCurrentTreaths != 0)
+                {
+                    pthread_join(tid[countCurrentTreaths],NULL);
+                    countCurrentTreaths--;
+
+                }
                 break;
             }	else	{
                 perror("other error");
                 break;
             }
         }
-
+        countCurrentTreaths++;
         arg_struct1.newSockfd=newSocket;
         arg_struct1.clientHandler=clientHandler;
 
@@ -88,7 +93,7 @@ void MasterOfThreads (int port, ClientHandler *c){
             printf("Failed to create thread\n");
         }
 //        countCurrentTreaths++;
-        if( countCurrentTreaths >= 50)
+        if(countCurrentTreaths >= 50)
         {
             countCurrentTreaths = 0;
             while(countCurrentTreaths < 50)
@@ -107,6 +112,7 @@ void MyParallelServer::open (int port, ClientHandler * c){
     cout<< "end MasterOfThreads"<<endl;
 
 }
+
 /*
 
 int main(){
@@ -120,4 +126,5 @@ int main(){
 
 
     return 1;
-}*/
+}
+*/

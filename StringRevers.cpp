@@ -15,6 +15,7 @@ string StringRevers::solve(string s) {
             it++;
         }
     }
+
     return newstring;
 }
 
