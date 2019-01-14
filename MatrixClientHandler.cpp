@@ -4,6 +4,18 @@
 #include <iostream>
 #include <cstring>
 
+bool isEndData(char* buffer){
+    int c = 0;
+    while(buffer[c] != '\0'){
+        cout<< "1"<<endl;
+        if(buffer[c] == 'e'){
+            return true;
+        }
+        c++;
+    }
+    return false;
+}
+
 
 void MatrixClientHandler::handleClient(int sockfd) {
     string problem;
@@ -13,14 +25,15 @@ void MatrixClientHandler::handleClient(int sockfd) {
 
         bzero(buffer , SIZE_OF_READ_DATA);
 
-        while(strstr(buffer,"end") != nullptr) {
+        while(true) {
+            cout << "inside the while"<< endl;
             n = read(sockfd, buffer, SIZE_OF_READ_DATA);
             problem += buffer;
-            memset(buffer, 0, sizeof(buffer));
-        }
-
-        if (strcmp(buffer , "end\r\n") == 0){
-            break;
+            cout<< buffer << endl;
+            if (isEndData(buffer)){
+                break;
+            }
+            bzero(buffer , SIZE_OF_READ_DATA);
         }
 
         if (n < 0){

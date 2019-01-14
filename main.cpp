@@ -22,12 +22,13 @@ pthread_mutex_t mutex;
 
 int main(){
 
+
     auto parallelServer = new MyParallelServer();
     auto cacheManager = new FileCacheManager();
     auto solver = new SearchProblemSolver();
     auto clientHandler = new MatrixClientHandler(cacheManager,solver);
 
-    parallelServer->open(5400,clientHandler);
+    parallelServer->open(5401,clientHandler);
 
 
 

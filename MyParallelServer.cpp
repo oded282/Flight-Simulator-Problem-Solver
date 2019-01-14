@@ -59,7 +59,7 @@ void MasterOfThreads (int port, ClientHandler *c){
     while(shouldRun){
 
         timeval timeout;
-        timeout.tv_sec = 10;
+        timeout.tv_sec = 100;
         timeout.tv_usec = 0;
 
         setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
