@@ -141,13 +141,11 @@ string SearchProblemSolver::solve(string problem) {
 
 
     std::vector<std::vector<double> *> *matrix = initTheMatrix(problem, initial, goal);
-    cout<< "matrix of double created" << endl;
     int row = (int) matrix->size();
     int col = (int) (*matrix)[0]->size();
 
     auto searchMatrix = new SearchableMatrix(initial, goal, matrix, row, col);
     string s = createPath(searcher->search(searchMatrix));
-    cout<< "send path"<<endl;
     return s;
 
 

@@ -31,6 +31,7 @@ public:
             State<T>* n = stack.top();
             stack.pop();
             this->visited.at(n) = BLACK;
+            this->numOfNodes++;
 
             std::vector<State<T>*>* succerssors = s->getPossibleStates(n);
 
@@ -51,7 +52,6 @@ public:
                     it->setFather(n);
                     it->setPathCost(n->getPathCost() + it->getNodeCost());
                     stack.push(it);
-                    this->numOfNodes++;
                 }
             }
         }

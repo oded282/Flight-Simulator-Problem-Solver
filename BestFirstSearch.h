@@ -57,6 +57,8 @@ public:
             State<T>* n = this->open.top();
             this->open.pop();
             this->visited.at(n) = BLACK;
+            this->numOfNodes++;
+
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
                 return this->backTrace(n);
@@ -76,10 +78,8 @@ public:
                     it->setFather(n);
                     it->setPathCost(currentPathCost);
                     this->open.push(it);
-                    this->numOfNodes++;
 
                 } else if (currentPathCost < it->getPathCost()) {
-                    this->numOfNodes++;
                     it->setFather(n);
                     it->setPathCost(currentPathCost);
                     if (this->visited.at(it) == BLACK) {

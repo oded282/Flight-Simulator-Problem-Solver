@@ -25,6 +25,7 @@ public:
             State<T>* n = this->open.top();
             this->open.pop();
             this->visited.at(n) = BLACK;
+            this->numOfNodes++;
 
             // check if it is the goal.
             if (n->equals(s->getGoal())) {
@@ -40,7 +41,6 @@ public:
                 double currentPathCost = n->getPathCost() + it->getNodeCost();
                 // if s is not in open and not in closed.
                 if (this->visited.at(it) == WHITE) {
-                    this->numOfNodes++;
                     this->visited.at(it) = GRAY;
                     s->setDistance(it,s->getGoal());
                     it->setFather(n);
@@ -48,7 +48,6 @@ public:
                     this->open.push(it);
 
                 } else if (currentPathCost < it->getPathCost()) {
-                    this->numOfNodes++;
                     it->setFather(n);
                     it->setPathCost(currentPathCost);
                     s->setDistance(it,s->getGoal());

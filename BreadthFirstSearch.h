@@ -21,6 +21,7 @@ public:
 
             State<T>* currentState = this->queue.front();
             this->queue.pop();
+            this->numOfNodes++;
 
             this->visited[currentState] = BLACK;
 
@@ -34,7 +35,6 @@ public:
                     child->setFather(currentState);
                     child->setPathCost(currentState->getPathCost() + child->getNodeCost());
                     this->visited.at(child) = GRAY;
-                    this->numOfNodes++;
 
                     if (child == s->getGoal()) {
                         return this->backTrace(child);

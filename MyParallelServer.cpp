@@ -59,7 +59,7 @@ void MasterOfThreads (int port, ClientHandler *c){
     pthread_t tid[60];
 
     timeval timeout;
-    timeout.tv_sec = 100;
+    timeout.tv_sec = 10;
     timeout.tv_usec = 0;
 
     setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
@@ -72,7 +72,7 @@ void MasterOfThreads (int port, ClientHandler *c){
         if (newSocket < 0)	{
             if (errno == EWOULDBLOCK)	{
                 cout << "timeout!" << endl;
-                while(countCurrentTreaths != 0)
+                while(countCurrentTreaths > 0)
                 {
                     pthread_join(tid[countCurrentTreaths],NULL);
                     countCurrentTreaths--;
@@ -83,10 +83,9 @@ void MasterOfThreads (int port, ClientHandler *c){
                 break;
             }
         }
-        countCurrentTreaths++;
+        //countCurrentTreaths++;
         auto arg_struct1 = new arg_struct();
         arg_struct1->newSockfd=newSocket;
-        cout<< "):"<< arg_struct1->newSockfd<< endl;
         arg_struct1->clientHandler= clientHandler->duplicate();
 
         //for each client request creates a thread and assign the client request to it to process

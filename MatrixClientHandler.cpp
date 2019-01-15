@@ -27,8 +27,6 @@ void MatrixClientHandler::handleClient(int sockfd) {
     while (true) {
         n = read(sockfd, buffer, SIZE_OF_READ_DATA);
 
-        cout<< buffer << "num of socket " << sockfd <<endl;
-
         problem += buffer;
         if (isEndData(buffer)) {
             break;
@@ -42,15 +40,10 @@ void MatrixClientHandler::handleClient(int sockfd) {
     }
     string result = cacheManager->getSolution(problem);
     if (result.empty()) {
-        cout << "trying to solve problem" << endl;
         result = solver->solve(problem);
-        cout << "result:" << endl;
-        cout << result << endl;
         cacheManager->addSolution(problem, result);
     }
     n = write(sockfd, result.data(), result.size());
-    cout<< " close socket" <<endl;
-    close(sockfd);
     if (n < 0) {
         cout << "not write to client from MyTestClientHandler" << endl;
         return;
