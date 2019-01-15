@@ -23,8 +23,8 @@ void MyTestClientHandler::handleClient(int sockfd) {
         }
         string result = cm->getSolution(buffer);
         if (result.empty()){
+            cout << "new problem" <<endl;
             result = solver->solve(buffer);
-            cout<<result<<endl;
             cm->addSolution(buffer , result);
         }
 

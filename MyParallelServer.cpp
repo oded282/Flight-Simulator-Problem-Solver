@@ -22,6 +22,7 @@ void* socketThread(void *arg){
 
     int newSocket = arg_struct1.newSockfd;
     ClientHandler* clientHandler = arg_struct1.clientHandler;
+    cout<<"handling new client"<<endl;
 
     clientHandler->handleClient(newSocket);
 
