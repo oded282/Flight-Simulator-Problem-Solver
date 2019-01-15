@@ -38,11 +38,11 @@ string FileCacheManager::getSolution(string problem) {
 }
 
 void FileCacheManager::addSolution(string problem, string solution) {
-/*    // lock thread.
-    pthread_mutex_lock(&mutex);*/
+    // lock thread.
+    pthread_mutex_lock(&mutex);
     newMap[problem] = solution;
-    /*// unlock thread.
-    pthread_mutex_unlock(&mutex);*/
+    // unlock thread.
+    pthread_mutex_unlock(&mutex);
 }
 
 void FileCacheManager::loadSolution() {
@@ -69,8 +69,5 @@ void FileCacheManager::loadSolution() {
             result.clear();
         }
         myReadFile.close();
-    } else {
-        cout << "Failed to open file." << endl;
     }
-
 }

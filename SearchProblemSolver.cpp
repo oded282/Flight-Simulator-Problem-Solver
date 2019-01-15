@@ -29,7 +29,7 @@ vector<string> splitByComma(string str) {
 /*
  * this function initial the goal and init values of the problem.
  */
-void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vectsor<std::string>::iterator &it) {
+void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vector<std::string>::iterator &it) {
     it-=2;
     goal.second = stoi(*it);
     it--;

@@ -22,12 +22,10 @@ void* socketThread(void *arg){
 
     int newSocket = arg_struct1.newSockfd;
     ClientHandler* clientHandler = arg_struct1.clientHandler;
-    cout<<"handling new client"<<endl;
 
     clientHandler->handleClient(newSocket);
 
     countCurrentTreaths--;
-    printf("Exit socketThread \n");
     close(newSocket);
     pthread_exit(NULL);
 }
@@ -52,25 +50,24 @@ void MasterOfThreads (int port, ClientHandler *c){
     //Bind the address struct to the socket
     bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
     //Listen on the socket, with 40 max connection requests queued
-    if(listen(serverSocket,1) == 0 )
-        printf("Listening\n");
-    else
-        printf("Error\n");
+
+    listen(serverSocket,1);
 
     pthread_t tid[60];
-
-    timeval timeout;
-    timeout.tv_sec = 10;
-    timeout.tv_usec = 0;
-
-    setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
-
+    bool isFirstItr = true;
     while(shouldRun){
 
         //Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
         newSocket = accept(serverSocket, (struct sockaddr *) &serverStorage, &addr_size);
-        cout<< "new socket: "<< newSocket<<endl;
+        if (isFirstItr) {
+            isFirstItr = false;
+            timeval timeout;
+            timeout.tv_sec = 1;
+            timeout.tv_usec = 0;
+
+            setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+        }
         if (newSocket < 0)	{
             if (errno == EWOULDBLOCK)	{
                 cout << "timeout!" << endl;

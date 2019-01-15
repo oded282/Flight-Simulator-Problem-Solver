@@ -15,21 +15,28 @@
 #include "MatrixClientHandler.h"
 #include "SearchProblemSolver.h"
 
-
 bool shouldRun = true;
 int countCurrentTreaths = 0;
 pthread_mutex_t mutex;
 
-int main(){
+int main(int argc, char *argv[]){
 
+    int port = stoi(argv[1]);
 
     auto parallelServer = new MyParallelServer();
     auto cacheManager = new FileCacheManager();
-    auto b = new BreadthFirstSearch<std::pair<int,int>>();
+    auto b = new AStar<std::pair<int,int>>();
     auto solver = new SearchProblemSolver(b);
     auto clientHandler = new MatrixClientHandler(cacheManager,solver);
 
-    parallelServer->open(5400,clientHandler);
+    parallelServer->open(port,clientHandler);
+
+
+    delete parallelServer;
+    delete cacheManager;
+    delete b;
+    delete solver;
+    delete clientHandler;
 
     return 1;
 }
