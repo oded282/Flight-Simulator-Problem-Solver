@@ -24,6 +24,7 @@ void MyTestClientHandler::handleClient(int sockfd) {
         string result = cm->getSolution(buffer);
         if (result.empty()){
             result = solver->solve(buffer);
+            cout<<result<<endl;
             cm->addSolution(buffer , result);
         }
 

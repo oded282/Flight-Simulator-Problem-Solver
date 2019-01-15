@@ -9,15 +9,18 @@
 
 class MatrixClientHandler : public ClientHandler{
     Solver* solver;
-    CacheManager<string,string>* cacheManager;
+    CacheManager* cacheManager;
 
 public:
-    MatrixClientHandler(CacheManager<string,string>* c , Solver* s){
+    MatrixClientHandler(CacheManager* c , Solver* s){
         solver = s;
         cacheManager = c;
     }
 
     virtual void handleClient(int sockfd);
+
+    virtual ClientHandler* duplicate();
+
 };
 
 

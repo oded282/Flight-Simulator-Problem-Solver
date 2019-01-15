@@ -14,11 +14,12 @@
 #include<pthread.h>
 #include <thread>
 
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+extern pthread_mutex_t mutex;
 
 void* socketThread(void *arg){
 
     arg_struct arg_struct1 = *((arg_struct *)arg);
+
     int newSocket = arg_struct1.newSockfd;
     ClientHandler* clientHandler = arg_struct1.clientHandler;
 
@@ -56,18 +57,18 @@ void MasterOfThreads (int port, ClientHandler *c){
         printf("Error\n");
 
     pthread_t tid[60];
+
+    timeval timeout;
+    timeout.tv_sec = 100;
+    timeout.tv_usec = 0;
+
+    setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+
     while(shouldRun){
 
-        timeval timeout;
-        timeout.tv_sec = 100;
-        timeout.tv_usec = 0;
-
-        setsockopt(serverSocket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
         //Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
-        arg_struct arg_struct1;
         newSocket = accept(serverSocket, (struct sockaddr *) &serverStorage, &addr_size);
-
         if (newSocket < 0)	{
             if (errno == EWOULDBLOCK)	{
                 cout << "timeout!" << endl;
@@ -75,7 +76,6 @@ void MasterOfThreads (int port, ClientHandler *c){
                 {
                     pthread_join(tid[countCurrentTreaths],NULL);
                     countCurrentTreaths--;
-
                 }
                 break;
             }	else	{
@@ -84,15 +84,17 @@ void MasterOfThreads (int port, ClientHandler *c){
             }
         }
         countCurrentTreaths++;
-        arg_struct1.newSockfd=newSocket;
-        arg_struct1.clientHandler=clientHandler;
+        auto arg_struct1 = new arg_struct();
+        arg_struct1->newSockfd=newSocket;
+        cout<< "):"<< arg_struct1->newSockfd<< endl;
+        arg_struct1->clientHandler= clientHandler->duplicate();
 
         //for each client request creates a thread and assign the client request to it to process
         //so the main thread can entertain next request
-        if(pthread_create(&tid[countCurrentTreaths], NULL, socketThread, &arg_struct1) != 0 ) {
+        if(pthread_create(&tid[countCurrentTreaths], NULL, socketThread, arg_struct1) != 0 ) {
             printf("Failed to create thread\n");
         }
-//        countCurrentTreaths++;
+        countCurrentTreaths++;
         if(countCurrentTreaths >= 50)
         {
             countCurrentTreaths = 0;
@@ -107,24 +109,5 @@ void MasterOfThreads (int port, ClientHandler *c){
 
 void MyParallelServer::open (int port, ClientHandler * c){
     std::thread th1(MasterOfThreads, port, c);
-    cout<< "start MasterOfThreads"<<endl;
     th1.join();
-    cout<< "end MasterOfThreads"<<endl;
-
 }
-
-/*
-
-int main(){
-
-    auto myParallelServer = new MyParallelServer();
-    auto stringRevers = new StringRevers();
-    auto cache = new FileCacheManager();
-    auto clientHandler = new MyTestClientHandler(cache , stringRevers);
-
-    myParallelServer->open(5400 ,clientHandler);
-
-
-    return 1;
-}
-*/

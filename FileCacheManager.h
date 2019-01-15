@@ -6,7 +6,7 @@
 #include "CacheManager.h"
 #include <unordered_map>
 
-class FileCacheManager : public CacheManager<string,string> {
+class FileCacheManager : public CacheManager {
     unordered_map<string, string> oldMap;
     unordered_map<string,string> newMap;
 

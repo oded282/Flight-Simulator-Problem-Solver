@@ -12,14 +12,13 @@ vector<string> splitByComma(string str) {
     vector<string> result;
     string val;
     for (auto itr = str.begin(); itr != str.end(); itr++) {
-        if (*itr != ',' && *itr != '\r') {
+        if (*itr != ',' && *itr != '\n') {
             val += *itr;
         } else {
             result.push_back(val);
             val.clear();
-            if (*itr == '\r') {
-                result.push_back("\r\n");
-                itr++;
+            if (*itr == '\n') {
+                result.push_back("\n");
             }
         }
     }
@@ -31,9 +30,6 @@ vector<string> splitByComma(string str) {
  * this function initial the goal and init values of the problem.
  */
 void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vector<std::string>::iterator &it) {
-    while(*it != "end"){
-        it--;
-    }
     it-=2;
     goal.second = stoi(*it);
     it--;
@@ -57,7 +53,6 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
 
 
     problem.erase( remove( problem.begin(), problem.end(), ' ' ), problem.end() );
-
     problemVec = splitByComma(problem); // erase commas.
     auto itBegin = problemVec.begin();
     auto it = problemVec.end();
@@ -65,7 +60,7 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
     initAndGoal(initial, goal, it); // initial the start and end of the problem.
     it += 2;
     for (itBegin; itBegin != it + 1; itBegin++) { // run over values and push them to vector.
-        if (*itBegin == "\r\n") {
+        if (*itBegin == "\n") {
             itBegin++;
             matrix->push_back(temp);
             temp = new std::vector<double>;
@@ -151,8 +146,9 @@ string SearchProblemSolver::solve(string problem) {
     int col = (int) (*matrix)[0]->size();
 
     auto searchMatrix = new SearchableMatrix(initial, goal, matrix, row, col);
-
-    return createPath(searcher->search(searchMatrix));
+    string s = createPath(searcher->search(searchMatrix));
+    cout<< "send path"<<endl;
+    return s;
 
 
 }
