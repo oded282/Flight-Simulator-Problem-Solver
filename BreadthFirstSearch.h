@@ -5,7 +5,11 @@
 #include "State.h"
 #include "AbstractSearcher.h"
 
-
+/*
+ * This algorithm is one of the searchers.
+ * it search for the solution and work as breadth first search works.
+ * we use queue for this algorithm.
+ */
 template<class T>
 class BreadthFirstSearch : public AbstractSearcher<T> {
 
@@ -17,15 +21,15 @@ public:
         first->setPathCost(first->getNodeCost());
         this->queue.push(first);
 
-        while (!this->queue.empty()) {
+        while (!this->queue.empty()) { // run until the queue is empty
 
-            State<T>* currentState = this->queue.front();
+            State<T>* currentState = this->queue.front(); // get the root of searchable.
             this->queue.pop();
             this->numOfNodes++;
 
             this->visited[currentState] = BLACK;
 
-            for (State<T>* child : *s->getPossibleStates(currentState)) {
+            for (State<T>* child : *s->getPossibleStates(currentState)) { // check state's children.
 
                 if (child->getNodeCost() == -1) {
                     this->visited.at(child) == BLACK;
@@ -36,7 +40,7 @@ public:
                     child->setPathCost(currentState->getPathCost() + child->getNodeCost());
                     this->visited.at(child) = GRAY;
 
-                    if (child == s->getGoal()) {
+                    if (child == s->getGoal()) { // case the children in our goal.
                         return this->backTrace(child);
                     }
                     this->queue.push(child);

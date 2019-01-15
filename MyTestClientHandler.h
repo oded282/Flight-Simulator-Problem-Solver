@@ -8,13 +8,16 @@
 
 #define SIZE_OF_READ_DATA 256
 
+/*
+ * This class responsible on the communication between client and the program.
+ */
 class MyTestClientHandler : public ClientHandler {
 
-    Solver* solver;
-    CacheManager* cm;
+    Solver *solver;
+    CacheManager *cm;
 
 public:
-    MyTestClientHandler(CacheManager* c , Solver* s){
+    MyTestClientHandler(CacheManager *c, Solver *s) {
         solver = s;
         cm = c;
     }

@@ -9,21 +9,27 @@
 #include "AStar.h"
 
 
+/*
+ * This class is specific solver.
+ * it contains solver who can solve problems.
+ */
 class SearchProblemSolver : public Solver {
 
-    Searcher<std::pair<int,int>> *searcher;
+    Searcher<std::pair<int, int>> *searcher;
 
 
 public:
-    SearchProblemSolver(){
-        searcher = new AStar<std::pair<int,int>>();
+    SearchProblemSolver() {
+        searcher = new AStar<std::pair<int, int>>();
     }
-    SearchProblemSolver(Searcher<std::pair<int,int>>* s){
+
+    SearchProblemSolver(Searcher<std::pair<int, int>> *s) {
         searcher = s;
     }
+
     virtual string solve(string problem);
 
-    ~SearchProblemSolver(){
+    ~SearchProblemSolver() {
         delete searcher;
     }
 };

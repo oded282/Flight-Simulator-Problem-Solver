@@ -5,10 +5,13 @@
 #include "MySerialServer.h"
 
 
+/*
+ * This func we deal with each client one by one.
+ */
 void *communicationServer(void *args) {
     struct TreadParms *t = (TreadParms *) args;
-    int clilen , newsockfd = 0;
-    struct sockaddr_in  cli_addr;
+    int clilen, newsockfd = 0;
+    struct sockaddr_in cli_addr;
 
 
     while (true) {
@@ -17,14 +20,14 @@ void *communicationServer(void *args) {
         */
         listen(t->sockfd, 1);
         clilen = sizeof(cli_addr);
-        int i =0;
+        int i = 0;
         //time out for waiting to client.
-        while (i < 10 && newsockfd <= 0){
+        while (i < 10 && newsockfd <= 0) {
             newsockfd = accept(t->sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
             sleep(1);
             i++;
         }
-        if (i == 10){
+        if (i == 10) {
             break;
         }
 
@@ -34,16 +37,18 @@ void *communicationServer(void *args) {
             perror("ERROR on accept");
             exit(1);
         }
-       t-> clientHandler->handleClient(newsockfd);
+        t->clientHandler->handleClient(newsockfd);
     }
     return nullptr;
 }
 
 
+/*
+ * This func open server.
+ */
+void MySerialServer::open(int port, ClientHandler *clientHandler) {
 
-void MySerialServer::open(int port , ClientHandler* clientHandler) {
-
-    int sockfd, clilen , newsockfd = 0;
+    int sockfd, clilen, newsockfd = 0;
     struct sockaddr_in serv_addr, cli_addr;
 
     /* First call to socket() function */
@@ -69,7 +74,7 @@ void MySerialServer::open(int port , ClientHandler* clientHandler) {
         exit(1);
     }
 
-    TreadParms* t = new TreadParms();
+    TreadParms *t = new TreadParms();
     t->sockfd = sockfd;
     t->clientHandler = clientHandler;
 

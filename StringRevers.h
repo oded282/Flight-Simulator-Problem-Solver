@@ -4,7 +4,10 @@
 
 #include "Solver.h"
 
-class StringRevers : public Solver{
+/*
+ * This class solve the reverse string prob.
+ */
+class StringRevers : public Solver {
 
 
 public:

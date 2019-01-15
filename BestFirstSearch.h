@@ -9,30 +9,10 @@
 #include "State.h"
 
 /*
-template<
-        class T,
-        class Container = std::vector<T>,
-        class Compare = std::less<typename Container::value_type>
->
-class MyQueue : public std::priority_queue<T, Container, myComparator<T>> {
-public:
-    typedef typename
-    std::priority_queue<
-            T,
-            Container,
-            Compare>::container_type::const_iterator const_iterator;
-
-    const_iterator find(const T &val) const {
-        auto first = this->c.cbegin();
-        auto last = this->c.cend();
-        while (first != last) {
-            if (*first == val) return first;
-            ++first;
-        }
-        return last;
-    }
-};
-*/
+ * This algorithm is one of the searchers.
+ * it search for the solution and work as best first search works.
+ * we use pririty queue for this algorithm.
+ */
 
 template <class T>
 class BestFirstSearch : public AbstractSearcher<T> {
@@ -52,7 +32,7 @@ public:
         first->setPathCost(first->getNodeCost());
         this->open.push(first);
 
-        while (!this->open.empty()) {
+        while (!this->open.empty()) { // untill the queue isn't empty
             // get the most lower path cost.
             State<T>* n = this->open.top();
             this->open.pop();
@@ -66,7 +46,7 @@ public:
             // get all the neighbors.
             std::vector<State<T>*>* succerssors = (s->getPossibleStates(n));
 
-            for (State<T>* it : *succerssors) {
+            for (State<T>* it : *succerssors) { // check state's children.
 
                 if (it->getNodeCost() == -1){
                     continue;

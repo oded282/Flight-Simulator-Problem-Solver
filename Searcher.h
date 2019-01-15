@@ -4,6 +4,11 @@
 
 #include "Searchable.h"
 
+/*
+ * This interface represent all the class who can search.
+ * all the algorithms implement that interface and can solve
+ * something that is searchable.
+ */
 template<class T>
 class Searcher {
 protected:

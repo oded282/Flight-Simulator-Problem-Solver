@@ -6,7 +6,11 @@
 
 using namespace std;
 
-class Solver{
+/*
+ * This interface represent the algorithms or any other thing
+ * that can solve problem.
+ */
+class Solver {
 
 public:
     virtual string solve(string) = 0;

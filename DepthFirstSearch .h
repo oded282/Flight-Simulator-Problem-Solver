@@ -6,6 +6,12 @@
 #include <stack>
 #include <iostream>
 
+/*
+ * This algorithm is one of the searchers.
+ * it search for the solution and work as depth first search works.
+ * we use stack for this algorithm.
+ */
+
 template<class T>
 class DepthFirstSearch : public AbstractSearcher<T> {
 
@@ -28,16 +34,16 @@ public:
 
         while (!stack.empty()){
 
-            State<T>* n = stack.top();
+            State<T>* n = stack.top(); // get the root of this searchable.
             stack.pop();
             this->visited.at(n) = BLACK;
             this->numOfNodes++;
 
             std::vector<State<T>*>* succerssors = s->getPossibleStates(n);
 
-            for(State<T>* it : *succerssors) {
+            for(State<T>* it : *succerssors) { // check state's children.
 
-                if (it == s->getGoal()){
+                if (it == s->getGoal()){ // case the child is the goal
                     it->setFather(n);
                     it->setPathCost(n->getPathCost() + it->getNodeCost());
                     return this->backTrace(it);
@@ -47,7 +53,7 @@ public:
                     continue;
                 }
 
-                if (this->visited.at(it) == WHITE) {
+                if (this->visited.at(it) == WHITE) { // if this child checked for the first time.
                     this->visited.at(it) = GRAY;
                     it->setFather(n);
                     it->setPathCost(n->getPathCost() + it->getNodeCost());

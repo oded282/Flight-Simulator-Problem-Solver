@@ -6,11 +6,16 @@
 #include <limits>
 #include <cstdlib>
 
-
+/*
+ * This class descrive state.
+ * who is the current node, who is his father,
+ * and what is the cost to go from the father to his son.
+ * another member is the distance between some node to the goal of the matrix.
+ */
 template<class T>
 class State {
 
-    T* state;
+    T *state;
     double nodeCost;
     double pathCost;
     State<T> *father;
@@ -20,7 +25,7 @@ class State {
 public:
 
 
-    State<T>(T* state) {
+    State<T>(T *state) {
         State::state = state;
         State::father = nullptr;
         State::nodeCost = 1;
@@ -29,7 +34,7 @@ public:
         distToGoal = 0;
     }
 
-    State<T>(T* state, double c) {
+    State<T>(T *state, double c) {
         State::state = state;
         State::father = nullptr;
         State::nodeCost = c;
@@ -38,14 +43,15 @@ public:
         distToGoal = 0;
     }
 
-    double getDistance() const{
+    double getDistance() const {
         return distToGoal;
     }
-    void setDistance(double distance){
+
+    void setDistance(double distance) {
         this->distToGoal = distance;
     }
 
-    bool equals(State<T>* state) {
+    bool equals(State<T> *state) {
         return *(state->getState()) == *(State::state);
     }
 
@@ -53,15 +59,15 @@ public:
         return numHash;
     }
 
-    void setState(T* state) {
+    void setState(T *state) {
         State::state = state;
     }
 
-    T* getState() {
-        return State::state ;
+    T *getState() {
+        return State::state;
     }
 
-    State<T>* getFather() {
+    State<T> *getFather() {
         return State::father;
     }
 
@@ -84,43 +90,14 @@ public:
     }
 
 
-    void setFather(State<T>* father) {
+    void setFather(State<T> *father) {
         State::father = father;
     }
 
-    bool operator==(State<T>* state)
-    {
+    bool operator==(State<T> *state) {
         return *(state->getState()) == *(State::state);
     }
 
-
-
-/*
-    bool operator< (const State<T>& b) {
-        return pathCost < b->getPathCost();
-    }
-    bool operator> (const State<T>& b) {
-        return pathCost > b->getPathCost();
-    }
-
- */
-
-
-
 };
-/*
-namespace std
-{
-    template <>
-    struct hash<State<pair<int,int>>>
-    {
-        size_t operator()(const State<pair<int,int>>& k) const
-        {
-            // Compute individual hash values for two data members and combine them using XOR and bit shifting
-            return (size_t)k.getNumHash();
-        }
-    };
-}
 
-*/
 #endif //MILESTONE2_STATE_H

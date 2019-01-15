@@ -30,7 +30,7 @@ vector<string> splitByComma(string str) {
  * this function initial the goal and init values of the problem.
  */
 void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vectsor<std::string>::iterator &it) {
-    it-=2;
+    it -= 2;
     goal.second = stoi(*it);
     it--;
     goal.first = stoi(*it);
@@ -52,7 +52,7 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
     std::vector<string> problemVec;
 
 
-    problem.erase( remove( problem.begin(), problem.end(), ' ' ), problem.end() );
+    problem.erase(remove(problem.begin(), problem.end(), ' '), problem.end());
     problemVec = splitByComma(problem); // erase commas.
     auto itBegin = problemVec.begin();
     auto it = problemVec.end();
@@ -69,21 +69,22 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
     }
     return matrix;
 }
- /*
-  * This func create the needed string of the direction from
-  * one state to another.
-  */
-string createDirection(int i, int j){
-    if(i == 0 && j ==1){
+
+/*
+ * This func create the needed string of the direction from
+ * one state to another.
+ */
+string createDirection(int i, int j) {
+    if (i == 0 && j == 1) {
         return "Right";
     }
-    if(i == 1 && j == 0){
+    if (i == 1 && j == 0) {
         return "Down";
     }
-    if(i  == -1 && j == 0){
+    if (i == -1 && j == 0) {
         return "Up";
     }
-    if(i == 0 && j == -1){
+    if (i == 0 && j == -1) {
         return "Left";
     }
     return "";
@@ -113,35 +114,38 @@ string checkDirections(State<T> *s1, State<T> *s2) {
         i = 1;
         j = 0;
     }
-    return createDirection(i,j);
+    return createDirection(i, j);
 }
 
 /*
  * This func check for position relation between two states in the path.
  */
 template<class T>
-string createPath(std::vector<State<T>*> *vector) {
+string createPath(std::vector<State<T> *> *vector) {
     std::string path;
     auto it = vector->end();
     it--;
     for (it; it != vector->begin(); it--) {
-        path += checkDirections(*it,*(it - 1)) += ",";
+        path += checkDirections(*it, *(it - 1)) += ",";
     }
     path.erase(path.end() - 1);
     return path;
 }
 
 /*
- *
+ * This func solves problems.
+ * Here specific we solve the problem of shortest path.
+ * we create the matrix who represent the problem and find the path
+ * using our problem solver.
  */
 string SearchProblemSolver::solve(string problem) {
 
     std::pair<int, int> initial;
     std::pair<int, int> goal;
 
-    cout<<"before initTheMatrix"<<endl;
+    cout << "before initTheMatrix" << endl;
     std::vector<std::vector<double> *> *matrix = initTheMatrix(problem, initial, goal);
-    cout<<"after initTheMatrix"<<endl;
+    cout << "after initTheMatrix" << endl;
     int row = (int) matrix->size();
     int col = (int) (*matrix)[0]->size();
 

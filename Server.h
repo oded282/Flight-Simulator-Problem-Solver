@@ -3,16 +3,21 @@
 
 
 #include "ClientHandler.h"
+
 extern bool shouldRun;
 extern int countCurrentTreaths;
 
+/*
+ * This interface responsible of opening servers.
+ */
 class Server {
 
 protected:
 
 public:
 
-    virtual void open(int port , ClientHandler* c) = 0;
+    virtual void open(int port, ClientHandler *c) = 0;
+
     virtual void close() = 0;
 
 };

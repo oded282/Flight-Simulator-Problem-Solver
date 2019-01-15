@@ -4,21 +4,26 @@
 #include "Server.h"
 
 
-//struct for the thread.
+/*
+ * This class creates threads and deals with client one by one.
+ */
 struct TreadParms {
     int sockfd;
-    ClientHandler* clientHandler;
+    ClientHandler *clientHandler;
 
 };
+
 class MySerialServer : public Server {
 
 
 public:
-    MySerialServer(){
+    MySerialServer() {
         shouldRun = true;
     }
-     void open(int port ,ClientHandler* c) ;
-     void close(){
+
+    void open(int port, ClientHandler *c);
+
+    void close() {
         shouldRun = false;
     }
 
