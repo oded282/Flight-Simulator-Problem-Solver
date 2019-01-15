@@ -24,7 +24,10 @@ public:
 
     virtual void handleClient(int sockfd);
 
-
+    ~MyTestClientHandler(){
+        delete solver;
+        delete cm;
+    }
 };
 
 

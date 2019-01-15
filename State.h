@@ -99,6 +99,10 @@ public:
         return *(state->getState()) == *(State::state);
     }
 
+    ~State(){
+        delete state;
+    }
+
 };
 
 #endif //MILESTONE2_STATE_H

@@ -1,7 +1,7 @@
 #ifndef MILESTONE2_MYPARALLELSERVER_H
 #define MILESTONE2_MYPARALLELSERVER_H
 
-
+#include <unistd.h>
 #include "Server.h"
 #include <iostream>
 #include "StringRevers.h"
@@ -35,13 +35,13 @@ public:
         shouldRun = true;
     }
     void open(int port ,ClientHandler* c) ;
-    void close(){
+    void done(){
         shouldRun = false;
     }
 
     ~MyParallelServer(){
         delete clientHandler;
-        ::close(this->serverSocket);
+        close(serverSocket);
     }
 };
 

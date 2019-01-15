@@ -12,7 +12,7 @@ void* socketThread(void *arg){
     ClientHandler* clientHandler = arg_struct1.clientHandler;
 
     clientHandler->handleClient(newSocket);
-
+    delete clientHandler;
     countCurrentTreaths--;
     close(newSocket);
     pthread_exit(NULL);
@@ -23,24 +23,6 @@ void MasterOfThreads (int port, ClientHandler *c , int serverSocket){
     int  newSocket;
     struct sockaddr_storage serverStorage;
     socklen_t addr_size;
-
-    /* struct sockaddr_in serverAddr;
-     struct sockaddr_storage serverStorage;
-     socklen_t addr_size;
-     //Create the socket.
-     serverSocket = socket(PF_INET, SOCK_STREAM, 0);
-     // Configure settings of the server address struct
-     // Address family = Internet
-     serverAddr.sin_family = AF_INET;
-     //Set port number, using htons function to use proper byte order
-     serverAddr.sin_port = htons(port);
-     //Set IP address to localhost
-     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-     //Set all bits of the padding field to 0
-     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
-     //Bind the address struct to the socket
-     bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
-     //Listen on the socket, with 40 max connection requests queued*/
 
 
     pthread_t tid[60];
@@ -95,11 +77,10 @@ void MasterOfThreads (int port, ClientHandler *c , int serverSocket){
 }
 
 void MyParallelServer::open (int port, ClientHandler * c){
-    int serverSocket;
     struct sockaddr_in serverAddr;
 
     //Create the socket.
-    serverSocket = socket(PF_INET, SOCK_STREAM, 0);
+    this->serverSocket = socket(PF_INET, SOCK_STREAM, 0);
     // Configure settings of the server address struct
     // Address family = Internet
     serverAddr.sin_family = AF_INET;
@@ -110,7 +91,7 @@ void MyParallelServer::open (int port, ClientHandler * c){
     //Set all bits of the padding field to 0
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
     //Bind the address struct to the socket
-    bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+    bind(this->serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
 
     listen(this->serverSocket,1);
 

@@ -18,7 +18,7 @@ public:
 
     virtual void open(int port, ClientHandler *c) = 0;
 
-    virtual void close() = 0;
+    virtual void done() = 0;
 
 };
 

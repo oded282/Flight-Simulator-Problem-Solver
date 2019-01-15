@@ -23,7 +23,7 @@ public:
 
     void open(int port, ClientHandler *c);
 
-    void close() {
+    void done() {
         shouldRun = false;
     }
 
