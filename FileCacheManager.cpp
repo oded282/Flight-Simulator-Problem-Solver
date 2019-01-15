@@ -11,9 +11,9 @@ void FileCacheManager::saveSolution() {
     unordered_map<string, string>::iterator it;
     for (it = newMap.begin(); it != newMap.end(); it++) {
         outfile << (*it).first << endl;
-        outfile<< "$" <<endl;
+        outfile << "$" << endl;
         outfile << (*it).second << endl;
-        outfile<< "$" <<endl;
+        outfile << "$" << endl;
     }
     outfile.close();
 
@@ -58,9 +58,9 @@ void FileCacheManager::loadSolution() {
                 problem += tempLine + '\n';
                 getline(myReadFile, tempLine);
             }
-            problem.erase(problem.end() -1);
+            problem.erase(problem.end() - 1);
             getline(myReadFile, tempLine);
-            while (tempLine != "$"){
+            while (tempLine != "$") {
                 result += tempLine;
                 getline(myReadFile, tempLine);
             }

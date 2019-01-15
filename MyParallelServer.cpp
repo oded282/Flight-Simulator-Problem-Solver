@@ -1,18 +1,6 @@
 #include <iostream>
 #include "MyParallelServer.h"
-#include "StringRevers.h"
-#include "FileCacheManager.h"
-#include "MyTestClientHandler.h"
-#include<stdio.h>
-#include<stdlib.h>
-#include<sys/socket.h>
-#include<netinet/in.h>
-#include<string.h>
-#include <arpa/inet.h>
-#include <fcntl.h> // for open
-#include <unistd.h> // for close
-#include<pthread.h>
-#include <thread>
+
 
 extern pthread_mutex_t mutex;
 
@@ -30,28 +18,30 @@ void* socketThread(void *arg){
     pthread_exit(NULL);
 }
 
-void MasterOfThreads (int port, ClientHandler *c){
+void MasterOfThreads (int port, ClientHandler *c , int serverSocket){
     ClientHandler *clientHandler = c;
-    int serverSocket, newSocket;
-    struct sockaddr_in serverAddr;
+    int  newSocket;
     struct sockaddr_storage serverStorage;
     socklen_t addr_size;
-    //Create the socket.
-    serverSocket = socket(PF_INET, SOCK_STREAM, 0);
-    // Configure settings of the server address struct
-    // Address family = Internet
-    serverAddr.sin_family = AF_INET;
-    //Set port number, using htons function to use proper byte order
-    serverAddr.sin_port = htons(port);
-    //Set IP address to localhost
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    //Set all bits of the padding field to 0
-    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
-    //Bind the address struct to the socket
-    bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
-    //Listen on the socket, with 40 max connection requests queued
 
-    listen(serverSocket,1);
+    /* struct sockaddr_in serverAddr;
+     struct sockaddr_storage serverStorage;
+     socklen_t addr_size;
+     //Create the socket.
+     serverSocket = socket(PF_INET, SOCK_STREAM, 0);
+     // Configure settings of the server address struct
+     // Address family = Internet
+     serverAddr.sin_family = AF_INET;
+     //Set port number, using htons function to use proper byte order
+     serverAddr.sin_port = htons(port);
+     //Set IP address to localhost
+     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+     //Set all bits of the padding field to 0
+     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
+     //Bind the address struct to the socket
+     bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+     //Listen on the socket, with 40 max connection requests queued*/
+
 
     pthread_t tid[60];
     bool isFirstItr = true;
@@ -105,6 +95,25 @@ void MasterOfThreads (int port, ClientHandler *c){
 }
 
 void MyParallelServer::open (int port, ClientHandler * c){
-    std::thread th1(MasterOfThreads, port, c);
+    int serverSocket;
+    struct sockaddr_in serverAddr;
+
+    //Create the socket.
+    serverSocket = socket(PF_INET, SOCK_STREAM, 0);
+    // Configure settings of the server address struct
+    // Address family = Internet
+    serverAddr.sin_family = AF_INET;
+    //Set port number, using htons function to use proper byte order
+    serverAddr.sin_port = htons(port);
+    //Set IP address to localhost
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    //Set all bits of the padding field to 0
+    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
+    //Bind the address struct to the socket
+    bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+
+    listen(this->serverSocket,1);
+
+    std::thread th1(MasterOfThreads, port, c , this->serverSocket);
     th1.join();
 }

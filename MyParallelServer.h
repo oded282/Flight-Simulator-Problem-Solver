@@ -3,7 +3,20 @@
 
 
 #include "Server.h"
-
+#include <iostream>
+#include "StringRevers.h"
+#include "FileCacheManager.h"
+#include "MyTestClientHandler.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<string.h>
+#include <arpa/inet.h>
+#include <fcntl.h> // for open
+#include <unistd.h> // for close
+#include<pthread.h>
+#include <thread>
 
 
 struct arg_struct {
@@ -13,7 +26,7 @@ struct arg_struct {
 
 
 class MyParallelServer : public Server {
-
+    int serverSocket;
     ClientHandler* clientHandler;
 
 
@@ -26,7 +39,10 @@ public:
         shouldRun = false;
     }
 
-
+    ~MyParallelServer(){
+        delete clientHandler;
+        ::close(this->serverSocket);
+    }
 };
 
 

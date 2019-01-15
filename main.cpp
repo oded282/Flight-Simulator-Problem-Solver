@@ -33,10 +33,7 @@ int main(int argc, char *argv[]){
 
 
     delete parallelServer;
-    delete cacheManager;
     delete b;
-    delete solver;
-    delete clientHandler;
 
     return 1;
 }

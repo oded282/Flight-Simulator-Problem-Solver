@@ -21,7 +21,11 @@ public:
 
     virtual ClientHandler* duplicate();
 
-};
+    ~MatrixClientHandler(){
+        delete solver;
+        delete cacheManager;
+    }
+    };
 
 
 #endif //MILESTONE2_MATRIXCLIENTHANDLER_H

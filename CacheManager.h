@@ -17,7 +17,8 @@ public:
     virtual void addSolution(string problem, string solution) = 0;
 
     virtual void loadSolution() = 0;
-    
+
+    virtual ~CacheManager() = default;
 
 };
 
