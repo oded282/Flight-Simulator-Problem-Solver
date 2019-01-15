@@ -16,11 +16,12 @@
 class SearchProblemSolver : public Solver {
 
     Searcher<std::pair<int, int>> *searcher;
-
+    SearchableMatrix* searchMatrix ;
 
 public:
     SearchProblemSolver() {
         searcher = new AStar<std::pair<int, int>>();
+        searchMatrix = nullptr;
     }
 
     SearchProblemSolver(Searcher<std::pair<int, int>> *s) {
@@ -31,6 +32,9 @@ public:
 
     ~SearchProblemSolver() {
         delete searcher;
+        if (searchMatrix != nullptr) {
+            delete searchMatrix;
+        }
     }
 };
 

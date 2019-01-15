@@ -145,7 +145,7 @@ string SearchProblemSolver::solve(string problem) {
     int row = (int) matrix->size();
     int col = (int) (*matrix)[0]->size();
 
-    auto searchMatrix = new SearchableMatrix(initial, goal, matrix, row, col);
+    this->searchMatrix = new SearchableMatrix(initial, goal, matrix, row, col);
     string s = createPath(searcher->search(searchMatrix));
     return s;
 

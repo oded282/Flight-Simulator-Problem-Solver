@@ -27,7 +27,6 @@ struct arg_struct {
 
 class MyParallelServer : public Server {
     int serverSocket;
-    ClientHandler* clientHandler;
 
 
 public:
@@ -40,7 +39,6 @@ public:
     }
 
     ~MyParallelServer(){
-        delete clientHandler;
         close(serverSocket);
     }
 };

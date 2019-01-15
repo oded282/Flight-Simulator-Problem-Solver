@@ -63,13 +63,15 @@ protected:
 public:
     AbstractSearcher() {}
 
-    ~AbstractSearcher() {}
+    virtual ~AbstractSearcher()= default;
 
     virtual std::vector<State<T> *> *search(Searchable<T> *s) = 0;
 
     double getNumOfNodesEvaluated() {
         return this->numOfNodes;
     };
+
+
 
 };
 

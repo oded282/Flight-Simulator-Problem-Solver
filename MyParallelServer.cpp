@@ -6,19 +6,21 @@ extern pthread_mutex_t mutex;
 
 void* socketThread(void *arg){
 
-    arg_struct arg_struct1 = *((arg_struct *)arg);
+    arg_struct* arg_struct1 = ((arg_struct *)arg);
 
-    int newSocket = arg_struct1.newSockfd;
-    ClientHandler* clientHandler = arg_struct1.clientHandler;
+    int newSocket = arg_struct1->newSockfd;
+    ClientHandler* clientHandler = arg_struct1->clientHandler;
 
     clientHandler->handleClient(newSocket);
+
+    delete arg_struct1;
     delete clientHandler;
     countCurrentTreaths--;
     close(newSocket);
     pthread_exit(NULL);
 }
 
-void MasterOfThreads (int port, ClientHandler *c , int serverSocket){
+void MasterOfThreads ( ClientHandler *c , int serverSocket){
     ClientHandler *clientHandler = c;
     int  newSocket;
     struct sockaddr_storage serverStorage;
@@ -95,6 +97,7 @@ void MyParallelServer::open (int port, ClientHandler * c){
 
     listen(this->serverSocket,1);
 
-    std::thread th1(MasterOfThreads, port, c , this->serverSocket);
+    std::thread th1(MasterOfThreads, c , this->serverSocket);
     th1.join();
+    delete c;
 }

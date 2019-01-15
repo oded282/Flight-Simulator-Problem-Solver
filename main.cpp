@@ -31,15 +31,13 @@ int main(int argc, char *argv[]){
 
     auto parallelServer = new MyParallelServer();
     auto cacheManager = new FileCacheManager();
-    auto b = new AStar<std::pair<int,int>>();
-    auto solver = new SearchProblemSolver(b);
+    auto solver = new SearchProblemSolver();
     auto clientHandler = new MatrixClientHandler(cacheManager,solver);
 
     parallelServer->open(port,clientHandler);
 
-
-    delete parallelServer;
     delete cacheManager;
+    delete parallelServer;
 
     return 1;
 }

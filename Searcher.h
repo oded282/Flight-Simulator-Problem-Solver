@@ -21,7 +21,7 @@ public:
 
     virtual double getNumOfNodesEvaluated() = 0;
 
-//    ~Searcher() = 0;
+    virtual ~Searcher() = default;
 
 };
 

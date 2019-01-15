@@ -14,6 +14,8 @@ class Solver {
 
 public:
     virtual string solve(string) = 0;
+
+    virtual ~Solver() = default;
 };
 
 #endif //MILESTONE2_SOLVER_H
