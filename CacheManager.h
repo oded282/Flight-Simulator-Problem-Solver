@@ -5,7 +5,9 @@
 #include <string>
 
 using namespace std;
-
+/*
+ * This interface responsible to save data of the prog.
+ */
 class CacheManager {
 
 public:

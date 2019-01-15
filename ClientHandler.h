@@ -5,6 +5,11 @@
 #include "CacheManager.h"
 
 using namespace std;
+
+/*
+ * This interface responsible of communication between client and
+ * the prog server.
+ */
 class ClientHandler
 {
 

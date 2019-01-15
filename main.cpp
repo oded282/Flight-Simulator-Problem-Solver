@@ -19,6 +19,12 @@ bool shouldRun = true;
 int countCurrentTreaths = 0;
 pthread_mutex_t mutex;
 
+
+/*
+ * The main create the parallel server the cach manager, some searcher and solver
+ * and start the prog that will start listen to all the clients.
+ * we will take care of each client at the same time, get solutions to their problems.
+ */
 int main(int argc, char *argv[]){
 
     int port = stoi(argv[1]);

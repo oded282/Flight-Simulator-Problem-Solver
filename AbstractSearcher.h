@@ -11,6 +11,12 @@ enum color {
     WHITE, GRAY, BLACK
 };
 
+/*
+ * This class use as comperator to the priority queue.
+ * we used the comperator to compare between two states,
+ * by their value path from the init state  plus the distance from
+ * the state to the goal state.
+ */
 template<class T>
 class myComparator {
 public:
@@ -19,20 +25,31 @@ public:
     }
 };
 
-template<class T>
+template<class T>/*
+ * This algorithm is one of the searchers.
+ * it search for the solution and work as breadth first search works.
+ * we use queue for this algorithm.
+ */
 class AbstractSearcher : public Searcher<T> {
 protected:
     std::unordered_map<State<T>*, color> visited;
     std::priority_queue<State<T>*, std::vector<State<T> *>, myComparator<T>> open;
     std::queue<State<T>*> queue;
 
-    //privet func.
+    /*
+     * This func initial all the state as un visited.
+     */
     void initialize(std::vector<State<T> *> *vector) {
         for (State<T> *s : *vector) {
             this->visited[s] = WHITE;
         }
     }
 
+    /*
+     * This func return the trace from the init to the state sent him.
+     * it checks who is the father of each state and go back
+     * until he get's to the init state.
+     */
     std::vector<State<T> *> *backTrace(State<T> *state) {
         auto trace = new std::vector<State<T> *>;
         while (state != nullptr) {

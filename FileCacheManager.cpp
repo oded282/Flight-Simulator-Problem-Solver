@@ -4,6 +4,10 @@
 
 extern pthread_mutex_t mutex;
 
+/*
+ * This func save all the data set to the new map and write to file
+ * called Data.txt
+ */
 void FileCacheManager::saveSolution() {
 
     ofstream outfile;
@@ -19,7 +23,10 @@ void FileCacheManager::saveSolution() {
 
 }
 
-
+/*
+ * This func check if there is any solution in the memory.
+ * we run on the mao searching for our problrem.
+ */
 string FileCacheManager::getSolution(string problem) {
     /*// lock thread.
     pthread_mutex_lock(&mutex);*/
@@ -37,6 +44,9 @@ string FileCacheManager::getSolution(string problem) {
 
 }
 
+/*
+ * This func we add new solution for some problem to the new map.
+ */
 void FileCacheManager::addSolution(string problem, string solution) {
     // lock thread.
     pthread_mutex_lock(&mutex);
@@ -45,6 +55,14 @@ void FileCacheManager::addSolution(string problem, string solution) {
     pthread_mutex_unlock(&mutex);
 }
 
+
+/*
+ * This func we will go to the Data.txt if exist,
+ * and load all our problems from the file.
+ * we will save them in "old map" so we won't write some
+ * old info when we shut the prog and save the new solution
+ * added this time.
+ */
 void FileCacheManager::loadSolution() {
 
     string tempLine;
@@ -52,8 +70,8 @@ void FileCacheManager::loadSolution() {
     string result;
     ifstream myReadFile;
     myReadFile.open("Data.txt");
-    if (myReadFile.is_open()) {
-        while (getline(myReadFile, tempLine)) {
+    if (myReadFile.is_open()) { // open the file
+        while (getline(myReadFile, tempLine)) { //read line by line.
             while (tempLine != "$") {
                 problem += tempLine + '\n';
                 getline(myReadFile, tempLine);
@@ -64,7 +82,7 @@ void FileCacheManager::loadSolution() {
                 result += tempLine;
                 getline(myReadFile, tempLine);
             }
-            oldMap[problem] = result;
+            oldMap[problem] = result; // insert data to map.
             problem.clear();
             result.clear();
         }
