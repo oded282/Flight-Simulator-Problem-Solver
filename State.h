@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 /*
+ *
  * This class descrive state.
  * who is the current node, who is his father,
  * and what is the cost to go from the father to his son.
