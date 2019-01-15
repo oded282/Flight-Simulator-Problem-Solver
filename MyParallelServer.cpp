@@ -69,6 +69,7 @@ void MasterOfThreads (int port, ClientHandler *c){
         //Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
         newSocket = accept(serverSocket, (struct sockaddr *) &serverStorage, &addr_size);
+        cout<< "new socket: "<< newSocket<<endl;
         if (newSocket < 0)	{
             if (errno == EWOULDBLOCK)	{
                 cout << "timeout!" << endl;
@@ -83,7 +84,6 @@ void MasterOfThreads (int port, ClientHandler *c){
                 break;
             }
         }
-        //countCurrentTreaths++;
         auto arg_struct1 = new arg_struct();
         arg_struct1->newSockfd=newSocket;
         arg_struct1->clientHandler= clientHandler->duplicate();

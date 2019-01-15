@@ -11,11 +11,17 @@ class FileCacheManager : public CacheManager {
     unordered_map<string,string> newMap;
 
 public:
-    FileCacheManager(){};
+    FileCacheManager(){
+        loadSolution();
+    };
     virtual void saveSolution();
     virtual string getSolution(string problem);
     virtual void addSolution(string problem, string solution);
     virtual void loadSolution();
+    virtual ~FileCacheManager() {
+        saveSolution();
+    };
+
 };
 
 
