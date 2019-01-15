@@ -38,8 +38,6 @@ protected:
             trace->push_back(state);
             state = state->getFather();
         }
-        std::cout<< "path cost: " << (*trace)[0]->getPathCost() <<std::endl;
-        std::cout<< "num of nodes: " <<  this->numOfNodes <<std::endl;
         return trace;
     }
 
@@ -56,6 +54,5 @@ public:
     };
 
 };
-
 
 #endif //MILESTONE2_ABSTRACTSEARCHER_H

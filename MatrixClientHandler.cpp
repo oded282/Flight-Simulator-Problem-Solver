@@ -39,26 +39,17 @@ void MatrixClientHandler::handleClient(int sockfd) {
         cout << "not read fro, the client in from MyTestClientHandler" << endl;
         return;
     }
-    // lock thread.
-    pthread_mutex_lock(&mutex);
+
     string result = cacheManager->getSolution(problem);
-    // unlock thread.
-    pthread_mutex_unlock(&mutex);
 
     if (result.empty()) {
-        cout<<"from solver"<<endl;
 
         result = solver->solve(problem);
-        // lock thread.
-        pthread_mutex_lock(&mutex);
-        cout<<"from add solution"<<endl;
+
         cacheManager->addSolution(problem, result);
-        // unlock thread.
-        pthread_mutex_unlock(&mutex);
+
     }
-    /*// unlock thread.
-    pthread_mutex_unlock(&mutex);
-    */
+
     n = write(sockfd, result.data(), result.size());
     if (n < 0) {
         cout << "not write to client from MyTestClientHandler" << endl;
