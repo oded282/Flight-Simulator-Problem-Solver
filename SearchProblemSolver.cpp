@@ -31,6 +31,10 @@ vector<string> splitByComma(string str) {
  * this function initial the goal and init values of the problem.
  */
 void initAndGoal(std::pair<int, int> &initial, std::pair<int, int> &goal, std::vector<std::string>::iterator &it) {
+    while(*it != "end"){
+        it--;
+    }
+    it-=2;
     goal.second = stoi(*it);
     it--;
     goal.first = stoi(*it);
@@ -50,6 +54,9 @@ initTheMatrix(string problem, std::pair<int, int> &initial, std::pair<int, int> 
     auto matrix = new std::vector<std::vector<double> *>;
     auto temp = new std::vector<double>;
     std::vector<string> problemVec;
+
+
+    problem.erase( remove( problem.begin(), problem.end(), ' ' ), problem.end() );
 
     problemVec = splitByComma(problem); // erase commas.
     auto itBegin = problemVec.begin();
@@ -139,7 +146,7 @@ string SearchProblemSolver::solve(string problem) {
 
 
     std::vector<std::vector<double> *> *matrix = initTheMatrix(problem, initial, goal);
-
+    cout<< "matrix of double created" << endl;
     int row = (int) matrix->size();
     int col = (int) (*matrix)[0]->size();
 

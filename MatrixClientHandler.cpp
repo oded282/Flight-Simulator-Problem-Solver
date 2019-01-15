@@ -7,7 +7,6 @@
 bool isEndData(char* buffer){
     int c = 0;
     while(buffer[c] != '\0'){
-        cout<< "1"<<endl;
         if(buffer[c] == 'e'){
             return true;
         }
@@ -26,7 +25,6 @@ void MatrixClientHandler::handleClient(int sockfd) {
         bzero(buffer , SIZE_OF_READ_DATA);
 
         while(true) {
-            cout << "inside the while"<< endl;
             n = read(sockfd, buffer, SIZE_OF_READ_DATA);
             problem += buffer;
             cout<< buffer << endl;
@@ -42,6 +40,8 @@ void MatrixClientHandler::handleClient(int sockfd) {
         }
         string result = cacheManager->getSolution(problem);
         if (result.empty()){
+            cout << "trying to solve problem"<< endl;
+            cout<< problem << endl;
             result = solver->solve(problem);
             cacheManager->addSolution(problem , result);
         }
